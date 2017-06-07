@@ -1,0 +1,1570 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans,defaults,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/blog/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/blog/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="SQL优化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="转自 ：https://mp.weixin.qq.com/s/jSYyXiE-kNoE9jpZ4kAEhw  http://www.cnblogs.com/llrr/p/6655977.html  我们要做到不但会写SQL,还要做到写出性能优良的SQL,以下为笔者学习、摘录、并汇总部分资料与大家分享！ 1、选择最有效率的表名顺序(只在基于规则的优化器中有效)ORACLE 的解析器按照从右到左的顺">
+<meta name="keywords" content="SQL优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="39个必知必会的SQL 性能调优方法">
+<meta property="og:url" content="https://hyf.js.org/39-tips-about-SQL-optimize/index.html">
+<meta property="og:site_name" content="Y.a.F.e.Y Blog">
+<meta property="og:description" content="转自 ：https://mp.weixin.qq.com/s/jSYyXiE-kNoE9jpZ4kAEhw  http://www.cnblogs.com/llrr/p/6655977.html  我们要做到不但会写SQL,还要做到写出性能优良的SQL,以下为笔者学习、摘录、并汇总部分资料与大家分享！ 1、选择最有效率的表名顺序(只在基于规则的优化器中有效)ORACLE 的解析器按照从右到左的顺">
+<meta property="og:updated_time" content="2017-06-07T17:55:36.200Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="39个必知必会的SQL 性能调优方法">
+<meta name="twitter:description" content="转自 ：https://mp.weixin.qq.com/s/jSYyXiE-kNoE9jpZ4kAEhw  http://www.cnblogs.com/llrr/p/6655977.html  我们要做到不但会写SQL,还要做到写出性能优良的SQL,以下为笔者学习、摘录、并汇总部分资料与大家分享！ 1、选择最有效率的表名顺序(只在基于规则的优化器中有效)ORACLE 的解析器按照从右到左的顺">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":20,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hyf.js.org/39-tips-about-SQL-optimize/"/>
+
+
+
+
+
+  <title>39个必知必会的SQL 性能调优方法 | Y.a.F.e.Y Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Y.a.F.e.Y Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://hyf.js.org/blog/39-tips-about-SQL-optimize/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YaFey">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Y.a.F.e.Y Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">39个必知必会的SQL 性能调优方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T01:40:43+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-08T01:55:36+08:00">
+                2017-06-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Oracle/" itemprop="url" rel="index">
+                    <span itemprop="name">Oracle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/39-tips-about-SQL-optimize/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="39-tips-about-SQL-optimize/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/39-tips-about-SQL-optimize/" class="leancloud_visitors" data-flag-title="39个必知必会的SQL 性能调优方法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>℃</span>
+             <span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,286
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>转自 ：<a href="https://mp.weixin.qq.com/s/jSYyXiE-kNoE9jpZ4kAEhw" target="_blank" rel="external">https://mp.weixin.qq.com/s/jSYyXiE-kNoE9jpZ4kAEhw</a></p>
+<p> <a href="http://www.cnblogs.com/llrr/p/6655977.html" target="_blank" rel="external">http://www.cnblogs.com/llrr/p/6655977.html</a></p>
+</blockquote>
+<p>我们要做到不但会写SQL,还要做到写出性能优良的SQL,以下为笔者学习、摘录、并汇总部分资料与大家分享！</p>
+<h2 id="1、选择最有效率的表名顺序-只在基于规则的优化器中有效"><a href="#1、选择最有效率的表名顺序-只在基于规则的优化器中有效" class="headerlink" title="1、选择最有效率的表名顺序(只在基于规则的优化器中有效)"></a><strong>1、选择最有效率的表名顺序(只在基于规则的优化器中有效)</strong></h2><p>ORACLE 的解析器按照从右到左的顺序处理FROM子句中的表名，FROM子句中写在最后的表(基础表 driving table)将被最先处理，在FROM子句中包含多个表的情况下,你必须选择记录条数最少的表作为基础表。如果有3个以上的表连接查询, 那就需要选择交叉表(intersection table)作为基础表, 交叉表是指那个被其他表所引用的表.</p>
+<h2 id="2、WHERE子句中的连接顺序"><a href="#2、WHERE子句中的连接顺序" class="headerlink" title="2、WHERE子句中的连接顺序"></a><strong>2、WHERE子句中的连接顺序</strong></h2><p>ORACLE采用自下而上的顺序解析WHERE子句,根据这个原理,表之间的连接必须写在其他WHERE条件之前, 那些可以过滤掉最大数量记录的条件必须写在WHERE子句的末尾.</p>
+<h2 id="3、SELECT子句中避免使用-‘-‘"><a href="#3、SELECT子句中避免使用-‘-‘" class="headerlink" title="3、SELECT子句中避免使用 ‘ * ‘"></a><strong>3、SELECT子句中避免使用 ‘ * ‘</strong></h2><p>ORACLE在解析的过程中, 会将’*’ 依次转换成所有的列名, 这个工作是通过查询数据字典完成的, 这意味着将耗费更多的时间</p>
+<h2 id="4、减少访问数据库的次数"><a href="#4、减少访问数据库的次数" class="headerlink" title="4、减少访问数据库的次数"></a><strong>4、减少访问数据库的次数</strong></h2><p>ORACLE在内部执行了许多工作: 解析SQL语句, 估算索引的利用率, 绑定变量 , 读数据块等；</p>
+<h2 id="5、在SQL-Plus-SQLForms和ProC中重新设置ARRAYSIZE参数-可以增加每次数据库访问的检索数据量-建议值为200"><a href="#5、在SQL-Plus-SQLForms和ProC中重新设置ARRAYSIZE参数-可以增加每次数据库访问的检索数据量-建议值为200" class="headerlink" title="5、在SQL*Plus , SQLForms和ProC中重新设置ARRAYSIZE参数, 可以增加每次数据库访问的检索数据量 ,建议值为200"></a><strong>5、在SQL*Plus , SQL<em>Forms和Pro</em>C中重新设置ARRAYSIZE参数, 可以增加每次数据库访问的检索数据量 ,建议值为200</strong></h2><h2 id="6、使用DECODE函数来减少处理时间"><a href="#6、使用DECODE函数来减少处理时间" class="headerlink" title="6、使用DECODE函数来减少处理时间"></a><strong>6、使用DECODE函数来减少处理时间</strong></h2><p>使用DECODE函数可以避免重复扫描相同记录或重复连接相同的表.</p>
+<h2 id="7、整合简单-无关联的数据库访问"><a href="#7、整合简单-无关联的数据库访问" class="headerlink" title="7、整合简单,无关联的数据库访问"></a><strong>7、整合简单,无关联的数据库访问</strong></h2><p>如果你有几个简单的数据库查询语句,你可以把它们整合到一个查询中(即使它们之间没有关系)</p>
+<h2 id="8、删除重复记录"><a href="#8、删除重复记录" class="headerlink" title="8、删除重复记录"></a><strong>8、删除重复记录</strong></h2><p>最高效的删除重复记录方法 ( 因为使用了ROWID)例子：</p>
+<p>DELETE  FROM  EMP E  WHERE  E.ROWID &gt; (SELECT MIN(X.ROWID)</p>
+<p>FROM  EMP X  WHERE  X.EMP_NO = E.EMP_NO);</p>
+<h2 id="9、用TRUNCATE替代DELETE"><a href="#9、用TRUNCATE替代DELETE" class="headerlink" title="9、用TRUNCATE替代DELETE"></a><strong>9、用TRUNCATE替代DELETE</strong></h2><p>当删除表中的记录时,在通常情况下, 回滚段(rollback segments ) 用来存放可以被恢复的信息. 如果你没有COMMIT事务,ORACLE会将数据恢复到删除之前的状态(准确地说是恢复到执行删除命令之前的状况) 而当运用TRUNCATE时, 回滚段不再存放任何可被恢复的信息.当命令运行后,数据不能被恢复.因此很少的资源被调用,执行时间也会很短. (译者按: TRUNCATE只在删除全表适用,TRUNCATE是DDL不是DML)</p>
+<h2 id="10、尽量多使用COMMIT"><a href="#10、尽量多使用COMMIT" class="headerlink" title="10、尽量多使用COMMIT"></a><strong>10、尽量多使用COMMIT</strong></h2><p>只要有可能,在程序中尽量多使用COMMIT, 这样程序的性能得到提高,需求也会因为COMMIT所释放的资源而减少:</p>
+<p>COMMIT所释放的资源：</p>
+<p>a. 回滚段上用于恢复数据的信息.</p>
+<p>b. 被程序语句获得的锁</p>
+<p>c. redo log buffer 中的空间</p>
+<p>d. ORACLE为管理上述3种资源中的内部花费</p>
+<h2 id="11、用Where子句替换HAVING子句"><a href="#11、用Where子句替换HAVING子句" class="headerlink" title="11、用Where子句替换HAVING子句"></a><strong>11、用Where子句替换HAVING子句</strong></h2><p>避免使用HAVING子句, HAVING 只会在检索出所有记录之后才对结果集进行过滤. 这个处理需要排序,总计等操作. 如果能通过WHERE子句限制记录的数目,那就能减少这方面的开销. (非oracle中)on、where、having这三个都可以加条件的子句中，on是最先执行，where次之，having最后，因为on是先把不 符合条件的记录过滤后才进行统计，它就可以减少中间运算要处理的数据，按理说应该速度是最快的，where也应该比having快点的，因为它过滤数据后 才进行sum，在两个表联接时才用on的，所以在一个表的时候，就剩下where跟having比较了。在这单表查询统计的情况下，如果要过滤的条件没有涉及到要计算字段，那它们的结果是一样的，只是where可以使用rushmore技术，而having就不能，在速度上后者要慢如果要涉及到计算的字 段，就表示在没计算之前，这个字段的值是不确定的，根据上篇写的工作流程，where的作用时间是在计算之前就完成的，而having就是在计算后才起作 用的，所以在这种情况下，两者的结果会不同。在多表联接查询时，on比where更早起作用。系统首先根据各个表之间的联接条件，把多个表合成一个临时表 后，再由where进行过滤，然后再计算，计算完后再由having进行过滤。由此可见，要想过滤条件起到正确的作用，首先要明白这个条件应该在什么时候起作用，然后再决定放在那里</p>
+<h2 id="12、-减少对表的查询"><a href="#12、-减少对表的查询" class="headerlink" title="12、 减少对表的查询"></a><strong>12、 减少对表的查询</strong></h2><p>在含有子查询的SQL语句中,要特别注意减少对表的查询.例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span>  TAB_NAME <span class="keyword">FROM</span> <span class="keyword">TABLES</span> <span class="keyword">WHERE</span> (TAB_NAME,DB_VER) = ( <span class="keyword">SELECT</span></div><div class="line"></div><div class="line">TAB_NAME,DB_VER <span class="keyword">FROM</span>  TAB_COLUMNS  <span class="keyword">WHERE</span>  <span class="keyword">VERSION</span> = <span class="number">604</span>)</div></pre></td></tr></table></figure>
+<h2 id="13、通过内部函数提高SQL效率"><a href="#13、通过内部函数提高SQL效率" class="headerlink" title="13、通过内部函数提高SQL效率"></a><strong>13、通过内部函数提高SQL效率</strong></h2><p>复杂的SQL往往牺牲了执行效率. 能够掌握上面的运用函数解决问题的方法在实际工作中是非常有意义的</p>
+<h2 id="14、使用表的别名-Alias"><a href="#14、使用表的别名-Alias" class="headerlink" title="14、使用表的别名(Alias)"></a><strong>14、使用表的别名(Alias)</strong></h2><p>当在SQL语句中连接多个表时, 请使用表的别名并把别名前缀于每个Column上.这样一来,就可以减少解析的时间并减少那些由Column歧义引起的语法错误.</p>
+<h2 id="15、-用EXISTS替代IN、用NOT-EXISTS替代NOT-IN"><a href="#15、-用EXISTS替代IN、用NOT-EXISTS替代NOT-IN" class="headerlink" title="15、 用EXISTS替代IN、用NOT EXISTS替代NOT IN"></a><strong>15、 用EXISTS替代IN、用NOT EXISTS替代NOT IN</strong></h2><p>在许多基于基础表的查询中,为了满足一个条件,往往需要对另一个表进行联接.在这种情况下, 使用EXISTS(或NOT EXISTS)通常将提高查询的效率. 在子查询中,NOT IN子句将执行一个内部的排序和合并. 无论在哪种情况下,NOT IN都是最低效的(因为它对子查询中的表执行了一个全表遍历). 为了避免使用NOT IN ,我们可以把它改写成外连接(Outer Joins)或NOT EXISTS.</p>
+<p>例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">高效：</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span>  EMP (基础表)  <span class="keyword">WHERE</span>  EMPNO &gt; <span class="number">0</span>  <span class="keyword">AND</span>  <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> ‘X<span class="string">'  FROM DEPT  WHERE  DEPT.DEPTNO = EMP.DEPTNO  AND  LOC = ‘MELB'</span>)</div><div class="line"></div><div class="line">低效：</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span>  * <span class="keyword">FROM</span>  EMP (基础表)  <span class="keyword">WHERE</span>  EMPNO &gt; <span class="number">0</span>  <span class="keyword">AND</span>  DEPTNO <span class="keyword">IN</span>(<span class="keyword">SELECT</span> DEPTNO  <span class="keyword">FROM</span>  DEPT  <span class="keyword">WHERE</span>  LOC = ‘MELB<span class="string">')</span></div></pre></td></tr></table></figure>
+<h2 id="16、识别’低效执行’的SQL语句"><a href="#16、识别’低效执行’的SQL语句" class="headerlink" title="16、识别’低效执行’的SQL语句"></a><strong>16、识别’低效执行’的SQL语句</strong></h2><p>虽然目前各种关于SQL优化的图形化工具层出不穷,但是写出自己的SQL工具来解决问题始终是一个最好的方法：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">SELECT  EXECUTIONS , <span class="keyword">DISK_READS, </span><span class="keyword">BUFFER_GETS,</span></div><div class="line"></div><div class="line">ROUND((<span class="keyword">BUFFER_GETS-DISK_READS)/BUFFER_GETS,2) </span>Hit_radio,</div><div class="line"></div><div class="line">ROUND(<span class="keyword">DISK_READS/EXECUTIONS,2) </span>Reads_per_run,</div><div class="line"></div><div class="line">SQL_TEXT</div><div class="line"></div><div class="line">FROM  V$SQLAREA</div><div class="line"></div><div class="line">WHERE  EXECUTIONS&gt;<span class="number">0</span></div><div class="line"></div><div class="line"><span class="keyword">AND </span> <span class="keyword">BUFFER_GETS </span>&gt; <span class="number">0</span></div><div class="line"></div><div class="line"><span class="keyword">AND </span> (<span class="keyword">BUFFER_GETS-DISK_READS)/BUFFER_GETS </span>&lt; <span class="number">0</span>.<span class="number">8</span></div><div class="line"></div><div class="line"><span class="keyword">ORDER </span><span class="keyword">BY </span> <span class="number">4</span> DESC<span class="comment">;</span></div></pre></td></tr></table></figure>
+<h2 id="17、用索引提高效率"><a href="#17、用索引提高效率" class="headerlink" title="17、用索引提高效率"></a><strong>17、用索引提高效率</strong></h2><p>索引是表的一个概念部分,用来提高检索数据的效率，ORACLE使用了一个复杂的自平衡B-tree结构. 通常,通过索引查询数据比全表扫描要快. 当ORACLE找出执行查询和Update语句的最佳路径时, ORACLE优化器将使用索引. 同样在联结多个表时使用索引也可以提高效率. 另一个使用索引的好处是,它提供了主键(primary key)的唯一性验证.。那些LONG或LONG RAW数据类型, 你可以索引几乎所有的列. 通常, 在大型表中使用索引特别有效. 当然,你也会发现, 在扫描小表时,使用索引同样能提高效率. 虽然使用索引能得到查询效率的提高,但是我们也必须注意到它的代价. 索引需要空间来存储,也需要定期维护, 每当有记录在表中增减或索引列被修改时, 索引本身也会被修改. 这意味着每条记录的INSERT , DELETE , UPDATE将为此多付出4 , 5 次的磁盘I/O . 因为索引需要额外的存储空间和处理,那些不必要的索引反而会使查询反应时间变慢.。定期的重构索引是有必要的.：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span>  <span class="keyword">INDEX</span> &lt;INDEXNAME&gt; <span class="keyword">REBUILD</span> &lt;TABLESPACENAME&gt;</div></pre></td></tr></table></figure>
+<h2 id="18、用EXISTS替换DISTINCT"><a href="#18、用EXISTS替换DISTINCT" class="headerlink" title="18、用EXISTS替换DISTINCT"></a><strong>18、用EXISTS替换DISTINCT</strong></h2><p>当提交一个包含一对多表信息(比如部门表和雇员表)的查询时,避免在SELECT子句中使用DISTINCT. 一般可以考虑用EXIST替换, EXISTS 使查询更为迅速,因为RDBMS核心模块将在子查询的条件一旦满足后,立刻返回结果. </p>
+<p>例子：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">低效：</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span>  <span class="keyword">DISTINCT</span>  DEPT_NO,DEPT_NAME  <span class="keyword">FROM</span>  DEPT D , EMP <span class="built_in">E</span></div><div class="line"></div><div class="line"><span class="keyword">WHERE</span>  D.DEPT_NO = <span class="built_in">E</span>.DEPT_NO</div><div class="line"></div><div class="line">高效：</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span>  DEPT_NO,DEPT_NAME  <span class="keyword">FROM</span>  DEPT D  <span class="keyword">WHERE</span>  <span class="keyword">EXISTS</span> ( <span class="keyword">SELECT</span> ‘X<span class="string">'</span></div><div class="line"></div><div class="line">FROM  EMP E  WHERE E.DEPT_NO = D.DEPT_NO);</div></pre></td></tr></table></figure>
+<h2 id="19、sql语句用大写的；因为oracle总是先解析sql语句，把小写的字母转换成大写的再执行"><a href="#19、sql语句用大写的；因为oracle总是先解析sql语句，把小写的字母转换成大写的再执行" class="headerlink" title="19、sql语句用大写的；因为oracle总是先解析sql语句，把小写的字母转换成大写的再执行"></a><strong>19、sql语句用大写的；因为oracle总是先解析sql语句，把小写的字母转换成大写的再执行</strong></h2><h2 id="20、在java代码中尽量少用连接符“＋”连接字符串！"><a href="#20、在java代码中尽量少用连接符“＋”连接字符串！" class="headerlink" title="20、在java代码中尽量少用连接符“＋”连接字符串！"></a><strong>20、在java代码中尽量少用连接符“＋”连接字符串！</strong></h2><h2 id="21、避免在索引列上使用NOT-通常"><a href="#21、避免在索引列上使用NOT-通常" class="headerlink" title="21、避免在索引列上使用NOT 通常"></a><strong>21、避免在索引列上使用NOT 通常</strong></h2><p>我们要避免在索引列上使用NOT, NOT会产生在和在索引列上使用函数相同的影响. 当ORACLE”遇到”NOT,他就会停止使用索引转而执行全表扫描.</p>
+<h2 id="22、避免在索引列上使用计算"><a href="#22、避免在索引列上使用计算" class="headerlink" title="22、避免在索引列上使用计算"></a><strong>22、避免在索引列上使用计算</strong></h2><p>WHERE子句中，如果索引列是函数的一部分．优化器将不使用索引而使用全表扫描．</p>
+<p>举例:</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">低效：</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> … <span class="keyword">FROM</span>  DEPT  <span class="keyword">WHERE</span> SAL * <span class="number">12</span> &gt; <span class="number">25000</span>;</div><div class="line"></div><div class="line">高效:</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> … <span class="keyword">FROM</span> DEPT <span class="keyword">WHERE</span> SAL &gt; <span class="number">25000</span>/<span class="number">12</span>;</div></pre></td></tr></table></figure>
+<h2 id="23、用-gt-替代-gt"><a href="#23、用-gt-替代-gt" class="headerlink" title="23、用&gt;=替代&gt;"></a><strong>23、用&gt;=替代&gt;</strong></h2><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">高效:</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span>  EMP  <span class="keyword">WHERE</span>  DEPTNO &gt;=<span class="number">4</span></div><div class="line"></div><div class="line">低效:</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> EMP <span class="keyword">WHERE</span> DEPTNO &gt;<span class="number">3</span></div></pre></td></tr></table></figure>
+<p>两者的区别在于, 前者DBMS将直接跳到第一个DEPT等于4的记录而后者将首先定位到DEPTNO=3的记录并且向前扫描到第一个DEPT大于3的记录.</p>
+<h2 id="24、用UNION替换OR-适用于索引列"><a href="#24、用UNION替换OR-适用于索引列" class="headerlink" title="24、用UNION替换OR (适用于索引列)"></a><strong>24、用UNION替换OR (适用于索引列)</strong></h2><p>通常情况下, 用UNION替换WHERE子句中的OR将会起到较好的效果. 对索引列使用OR将造成全表扫描. 注意, 以上规则只针对多个索引列有效. 如果有column没有被索引, 查询效率可能会因为你没有选择OR而降低. 在下面的例子中, LOC_ID 和REGION上都建有索引.</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">高效:</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> LOC_ID , LOC_DESC , REGION</div><div class="line"></div><div class="line"><span class="keyword">FROM</span> LOCATION</div><div class="line"></div><div class="line"><span class="keyword">WHERE</span> LOC_ID = <span class="number">10</span></div><div class="line"></div><div class="line"><span class="keyword">UNION</span></div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> LOC_ID , LOC_DESC , REGION</div><div class="line"></div><div class="line"><span class="keyword">FROM</span> LOCATION</div><div class="line"></div><div class="line"><span class="keyword">WHERE</span> REGION = “MELBOURNE”</div><div class="line"></div><div class="line">低效：</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> LOC_ID , LOC_DESC , REGION</div><div class="line"></div><div class="line"><span class="keyword">FROM</span> LOCATION</div><div class="line"></div><div class="line"><span class="keyword">WHERE</span> LOC_ID = <span class="number">10</span> <span class="keyword">OR</span> REGION = “MELBOURNE”</div></pre></td></tr></table></figure>
+<p>如果你坚持要用OR, 那就需要返回记录最少的索引列写在最前面.</p>
+<h2 id="25、用IN来替换OR"><a href="#25、用IN来替换OR" class="headerlink" title="25、用IN来替换OR "></a><strong>25、用IN来替换OR </strong></h2><p>这是一条简单易记的规则，但是实际的执行效果还须检验，在ORACLE8i下，两者的执行路径似乎是相同的．　</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">低效:</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span>…. <span class="keyword">FROM</span> LOCATION <span class="keyword">WHERE</span> LOC_ID = <span class="number">10</span> <span class="keyword">OR</span> LOC_ID = <span class="number">20</span> <span class="keyword">OR</span> LOC_ID = <span class="number">30</span></div><div class="line"></div><div class="line">高效</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span>… <span class="keyword">FROM</span> LOCATION <span class="keyword">WHERE</span> LOC_IN  <span class="keyword">IN</span> (<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>);</div></pre></td></tr></table></figure>
+<h2 id="26、避免在索引列上使用IS-NULL和IS-NOT-NULL"><a href="#26、避免在索引列上使用IS-NULL和IS-NOT-NULL" class="headerlink" title="26、避免在索引列上使用IS NULL和IS NOT NULL"></a><strong>26、避免在索引列上使用IS NULL和IS NOT NULL</strong></h2><p>避免在索引中使用任何可以为空的列，ORACLE将无法使用该索引．对于单列索引，如果列包含空值，索引中将不存在此记录. 对于复合索引，如果每个列都为空，索引中同样不存在此记录.　如果至少有一个列不为空，则记录存在于索引中．举例: 如果唯一性索引建立在表的A列和B列上, 并且表中存在一条记录的A,B值为(123,null) , ORACLE将不接受下一条具有相同A,B值（123,null）的记录(插入). 然而如果所有的索引列都为空，ORACLE将认为整个键值为空而空不等于空. 因此你可以插入1000 条具有相同键值的记录,当然它们都是空! 因为空值不存在于索引列中,所以WHERE子句中对索引列进行空值比较将使ORACLE停用该索引.</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">低效: (索引失效)</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> … <span class="keyword">FROM</span>  DEPARTMENT  <span class="keyword">WHERE</span>  DEPT_CODE <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">高效: (索引有效)</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> … <span class="keyword">FROM</span>  DEPARTMENT  <span class="keyword">WHERE</span>  DEPT_CODE &gt;=<span class="number">0</span>;</div></pre></td></tr></table></figure>
+<h2 id="27、-总是使用索引的第一个列"><a href="#27、-总是使用索引的第一个列" class="headerlink" title="27、 总是使用索引的第一个列"></a><strong>27、 总是使用索引的第一个列</strong></h2><p>如果索引是建立在多个列上, 只有在它的第一个列(leading column)被where子句引用时,优化器才会选择使用该索引. 这也是一条简单而重要的规则，当仅引用索引的第二个列时,优化器使用了全表扫描而忽略了索引</p>
+<h2 id="28、用UNION-ALL-替换UNION-如果有可能的话"><a href="#28、用UNION-ALL-替换UNION-如果有可能的话" class="headerlink" title="28、用UNION-ALL 替换UNION ( 如果有可能的话)"></a><strong>28、用UNION-ALL 替换UNION ( 如果有可能的话)</strong></h2><p>当SQL 语句需要UNION两个查询结果集合时,这两个结果集合会以UNION-ALL的方式被合并, 然后在输出最终结果前进行排序. 如果用UNION ALL替代UNION, 这样排序就不是必要了. 效率就会因此得到提高. 需要注意的是，UNION ALL 将重复输出两个结果集合中相同记录. 因此各位还是要从业务需求分析使用UNION ALL的可行性. UNION 将对结果集合排序,这个操作会使用到SORT_AREA_SIZE这块内存. 对于这块内存的优化也是相当重要的. 下面的SQL可以用来查询排序的消耗量</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">低效：</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span>  ACCT_NUM, BALANCE_AMT</div><div class="line"></div><div class="line"><span class="keyword">FROM</span>  DEBIT_TRANSACTIONS</div><div class="line"></div><div class="line"><span class="keyword">WHERE</span> TRAN_DATE = <span class="string">'31-DEC-95'</span></div><div class="line"></div><div class="line"><span class="keyword">UNION</span></div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> ACCT_NUM, BALANCE_AMT</div><div class="line"></div><div class="line"><span class="keyword">FROM</span> DEBIT_TRANSACTIONS</div><div class="line"></div><div class="line"><span class="keyword">WHERE</span> TRAN_DATE = <span class="string">'31-DEC-95'</span></div><div class="line"></div><div class="line">高效:</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> ACCT_NUM, BALANCE_AMT</div><div class="line"></div><div class="line"><span class="keyword">FROM</span> DEBIT_TRANSACTIONS</div><div class="line"></div><div class="line"><span class="keyword">WHERE</span> TRAN_DATE = <span class="string">'31-DEC-95'</span></div><div class="line"></div><div class="line"><span class="keyword">UNION</span> ALL</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> ACCT_NUM, BALANCE_AMT</div><div class="line"></div><div class="line"><span class="keyword">FROM</span> DEBIT_TRANSACTIONS</div><div class="line"></div><div class="line"><span class="keyword">WHERE</span> TRAN_DATE = <span class="string">'31-DEC-95'</span></div></pre></td></tr></table></figure>
+<h2 id="29、用WHERE替代ORDER-BY："><a href="#29、用WHERE替代ORDER-BY：" class="headerlink" title="29、用WHERE替代ORDER BY："></a><strong>29、用WHERE替代ORDER BY：</strong></h2><p>ORDER BY 子句只在两种严格的条件下使用索引.</p>
+<p>ORDER BY中所有的列必须包含在相同的索引中并保持在索引中的排列顺序.</p>
+<p>ORDER BY中所有的列必须定义为非空.</p>
+<p>WHERE子句使用的索引和ORDER BY子句中所使用的索引不能并列.</p>
+<p>例如:</p>
+<p>表DEPT包含以下列:</p>
+<p>DEPT_CODE PK NOT NULL</p>
+<p>DEPT_DESC NOT NULL</p>
+<p>DEPT_TYPE NULL</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">低效: (索引不被使用)</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> DEPT_CODE <span class="keyword">FROM</span>  DEPT  <span class="keyword">ORDER</span> <span class="keyword">BY</span>  DEPT_TYPE</div><div class="line"></div><div class="line">高效: (使用索引)</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> DEPT_CODE  <span class="keyword">FROM</span>  DEPT  <span class="keyword">WHERE</span>  DEPT_TYPE &gt; <span class="number">0</span></div></pre></td></tr></table></figure>
+<h2 id="30、避免改变索引列的类型"><a href="#30、避免改变索引列的类型" class="headerlink" title="30、避免改变索引列的类型"></a><strong>30、避免改变索引列的类型</strong></h2><p>当比较不同数<em>**</em>据类型的数据时, ORACLE自动对列进行简单的类型转换.</p>
+<p>假设 EMPNO是一个数值类型的索引列.</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> …  <span class="keyword">FROM</span> EMP  <span class="keyword">WHERE</span>  EMPNO = ‘<span class="number">123</span><span class="comment">'</span></div></pre></td></tr></table></figure>
+<p>实际上,经过ORACLE类型转换, 语句转化为:</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> …  <span class="keyword">FROM</span> EMP  <span class="keyword">WHERE</span>  EMPNO = TO_NUMBER(‘<span class="number">123</span><span class="comment">')</span></div></pre></td></tr></table></figure>
+<p>幸运的是,类型转换没有发生在索引列上,索引的用途没有被改变.</p>
+<p>现在,假设EMP_TYPE是一个字符类型的索引列.</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> …  <span class="keyword">FROM</span> EMP  <span class="keyword">WHERE</span> EMP_TYPE = <span class="number">123</span></div></pre></td></tr></table></figure>
+<p>这个语句被ORACLE转换为:</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> …  <span class="keyword">FROM</span> EMP  WHERETO_NUMBER(EMP_TYPE)=<span class="number">123</span></div></pre></td></tr></table></figure>
+<p>因为内部发生的类型转换, 这个索引将不会被用到! 为了避免ORACLE对你的SQL进行隐式的类型转换, 最好把类型转换用显式表现出来. 注意当字符和数值比较时, ORACLE会优先转换数值类型到字符类型</p>
+<h2 id="31、需要当心的WHERE子句"><a href="#31、需要当心的WHERE子句" class="headerlink" title="31、需要当心的WHERE子句"></a><strong>31、需要当心的WHERE子句</strong></h2><p>某些SELECT 语句中的WHERE子句不使用索引. 这里有一些例子.</p>
+<p>在下面的例子里, (1)‘!=’ 将不使用索引. 记住, 索引只能告诉你什么存在于表中, 而不能告诉你什么不存在于表中. (2) ‘ | |’是字符连接函数. 就象其他函数那样, 停用了索引. (3) ‘+’是数学函数. 就象其他数学函数那样, 停用了索引. (4)相同的索引列不能互相比较,这将会启用全表扫描.</p>
+<h2 id="32、a-如果检索数据量超过30-的表中记录数-使用索引将没有显著的效率提高"><a href="#32、a-如果检索数据量超过30-的表中记录数-使用索引将没有显著的效率提高" class="headerlink" title="32、a. 如果检索数据量超过30%的表中记录数.使用索引将没有显著的效率提高"></a><strong>32、a. 如果检索数据量超过30%的表中记录数.使用索引将没有显著的效率提高</strong></h2><p>b. 在特定情况下, 使用索引也许会比全表扫描慢, 但这是同一个数量级上的区别. 而通常情况下,使用索引比全表扫描要块几倍乃至几千倍!</p>
+<h2 id="33、避免使用耗费资源的操作"><a href="#33、避免使用耗费资源的操作" class="headerlink" title="33、避免使用耗费资源的操作"></a><strong>33、避免使用耗费资源的操作</strong></h2><p>带有DISTINCT,UNION,MINUS,INTERSECT,ORDER BY的SQL语句会启动SQL引擎</p>
+<p>执行耗费资源的排序(SORT)功能. DISTINCT需要一次排序操作, 而其他的至少需要执行两次排序. 通常, 带有UNION, MINUS , INTERSECT的SQL语句都可以用其他方式重写. 如果你的数据库的SORT_AREA_SIZE调配得好, 使用UNION , MINUS, INTERSECT也是可以考虑的, 毕竟它们的可读性很强</p>
+<h2 id="34、优化GROUP-BY"><a href="#34、优化GROUP-BY" class="headerlink" title="34、优化GROUP BY"></a><strong>34、优化GROUP BY</strong></h2><p>提高GROUP BY 语句的效率, 可以通过将不需要的记录在GROUP BY 之前过滤掉.下面两个查询返回相同结果但第二个明显就快了许多.</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">低效:</div><div class="line"></div><div class="line">SELECT JOB , AVG(SAL)</div><div class="line"></div><div class="line"><span class="keyword">FROM</span> EMP</div><div class="line"><span class="built_in"></span></div><div class="line">GROUP by JOB</div><div class="line"></div><div class="line">HAVING JOB = ‘PRESIDENT'</div><div class="line"></div><div class="line"><span class="keyword">OR</span> JOB = ‘MANAGER'</div><div class="line"></div><div class="line">高效:</div><div class="line"></div><div class="line">SELECT JOB , AVG(SAL)</div><div class="line"></div><div class="line"><span class="keyword">FROM</span> EMP</div><div class="line"></div><div class="line">WHERE JOB = ‘PRESIDENT'</div><div class="line"></div><div class="line"><span class="keyword">OR</span> JOB = ‘MANAGER'</div><div class="line"><span class="built_in"></span></div><div class="line">GROUP by JOB</div></pre></td></tr></table></figure>
+<h2 id="35、Select-Count-和Select-Count-1-区别"><a href="#35、Select-Count-和Select-Count-1-区别" class="headerlink" title="35、Select Count (*)和Select Count(1) 区别"></a><strong>35、Select Count (*)和Select Count(1) 区别</strong></h2><p>一般情况下，Select Count (*)和Select Count(1)两着返回结果是一样的</p>
+<p>假如表沒有主键(Primary key), 那么count(1)比count(*)快，</p>
+<p>如果有主键的話，那主键作为count的条件时候count(主键)最快</p>
+<p>如果你的表只有一个字段的话那count(*)就是最快的</p>
+<p>count(*) 跟 count(1) 的结果一样，都包括对NULL的统计，而count(column) 是不包括NULL的统计</p>
+<p>selelct 常量 from … 对应所有行，返回的永远只有一个值，即常量 。所以正常只会用来判断是否有还是没有（比如exists子句）。而select * from … 是返回所有行的所有列。</p>
+<p>性能上的差异，关键看你的from和where子句。比如说如果你的where条件中可以通过索引，那显然 select 1 from … 的性能比 select * from … 好。</p>
+<p>select count(*)返回所有满足条件的记录数，此时同select sum(1)</p>
+<p>但是sum()可以传任意数字，负数、浮点数都可以，返回的值是传入值n*满足条件记录数m</p>
+<h2 id="36、IS-NULL-与-IS-NOT-NULL"><a href="#36、IS-NULL-与-IS-NOT-NULL" class="headerlink" title="36、IS NULL 与 IS NOT NULL"></a><strong>36、IS NULL 与 IS NOT NULL</strong></h2><p>不能用null作索引，任何包含null值的列都将不会被包含在索引中。即使索引有多列这样的情况下，只要这些列中有一列含有null，该列就会从索引中排除。也就是说如果某列存在空值，即使对该列建索引也不会提高性能。</p>
+<p>任何在where子句中使用is null或is not null的语句优化器是不允许使用索引的。</p>
+<h2 id="37、联接列"><a href="#37、联接列" class="headerlink" title="37、联接列"></a><strong>37、联接列</strong></h2><p>对于有联接的列，即使最后的联接值为一个静态值，优化器是不会使用索引的。我们一起来看一个例子，假定有一个职工表(employee)，对于一个职工的姓和名分成两列存放(FIRST_NAME和LAST_NAME)，现在要查询一个叫比尔.克林顿(Bill Cliton)的职工。</p>
+<p>　　</p>
+<p>下面是一个采用联接查询的SQL语句，   </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employss <span class="keyword">where</span> first_name||<span class="string">''</span>||last_name =<span class="string">'Beill Cliton'</span>;</div></pre></td></tr></table></figure>
+<p>​    </p>
+<p>上面这条语句完全可以查询出是否有Bill Cliton这个员工，但是这里需要注意，系统优化器对基于last_name创建的索引没有使用。</p>
+<p>　　</p>
+<p>当采用下面这种SQL语句的编写，Oracle系统就可以采用基于last_name创建的索引。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*** <span class="keyword">where</span> first_name =<span class="string">'Beill'</span> <span class="literal">and</span> last_name =<span class="string">'Cliton'</span>;</div></pre></td></tr></table></figure>
+<p>带通配符(%)的like语句</p>
+<p>　　</p>
+<p>同样以上面的例子来看这种情况。目前的需求是这样的，要求在职工表中查询名字中包含cliton的人。可以采用如下的查询SQL语句:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">'%cliton%'</span>;</div></pre></td></tr></table></figure>
+<p>这里由于通配符(%)在搜寻词首出现，所以Oracle系统不使用last_name的索引。在很多情况下可能无法避免这种情况，但是一定要心中有底，通配符如此使用会降低查询速度。然而当通配符出现在字符串其他位置时，优化器就能利用索引。在下面的查询中索引得到了使用:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">'c%'</span>;</div></pre></td></tr></table></figure>
+<h2 id="38、Order-by语句"><a href="#38、Order-by语句" class="headerlink" title="38、Order by语句"></a><strong>38、Order by语句</strong></h2><p>ORDER BY语句决定了Oracle如何将返回的查询结果排序。Order by语句对要排序的列没有什么特别的限制，也可以将函数加入列中(象联接或者附加等)。任何在Order by语句的非索引项或者有计算表达式都将降低查询速度。</p>
+<p>　　</p>
+<p>仔细检查order by语句以找出非索引项或者表达式，它们会降低性能。解决这个问题的办法就是重写order by语句以使用索引，也可以为所使用的列建立另外一个索引，同时应绝对避免在order by子句中使用表达式。</p>
+<h2 id="39、-NOT"><a href="#39、-NOT" class="headerlink" title="39、 NOT"></a><strong>39、 NOT</strong></h2><p>我们在查询时经常在where子句使用一些逻辑表达式，如大于、小于、等于以及不等于等等，也可以使用and(与)、or(或)以及not(非)。NOT可用来对任何逻辑运算符号取反。下面是一个NOT子句的例子:</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="params">...</span> <span class="keyword">where</span> <span class="literal">not</span> (status =<span class="string">'VALID'</span>)</div></pre></td></tr></table></figure>
+<p>如果要使用NOT，则应在取反的短语前面加上括号，并在短语前面加上NOT运算符。NOT运算符包含在另外一个逻辑运算符中，这就是不等于(&lt;&gt;)运算符。换句话说，即使不在查询where子句中显式地加入NOT词，NOT仍在运算符中，见下例:</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">... <span class="keyword">where</span> status &lt;&gt;<span class="string">'INVALID'</span>;</div></pre></td></tr></table></figure>
+<p>对这个查询，可以改写为不使用NOT:</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> salary&lt;<span class="number">3000</span> <span class="keyword">or</span> salary&gt;<span class="number">3000</span>;</div></pre></td></tr></table></figure>
+<p>虽然这两种查询的结果一样，但是第二种查询方案会比第一种查询方案更快些。第二种查询允许Oracle对salary列使用索引，而第一种查询则不能使用索引。</p>
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/blog/39-tips-about-SQL-optimize/">39个必知必会的SQL 性能调优方法</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 YaFey 的个人博客">YaFey</a></p>
+  <p><span>发布时间:</span>2017年06月08日 - 01:06</p>
+  <p><span>最后更新:</span>2017年06月08日 - 01:06</p>
+  <p><span>原始链接:</span><a href="/blog/39-tips-about-SQL-optimize/" title="39个必知必会的SQL 性能调优方法">https://hyf.js.org/39-tips-about-SQL-optimize/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://hyf.js.org/39-tips-about-SQL-optimize/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({
+		  title: "",
+		  text: '复制成功',
+		  html: false,
+		  timer: 500,
+		  showConfirmButton: false
+	    });
+	  });
+    }));
+</script>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果我的文章让你有收获，请支持一下！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/blog/images/weixinPay.jpg" alt="YaFey WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/blog/images/alipay.jpg" alt="YaFey Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/SQL优化/" rel="tag"> <i class="fa fa-tag"></i> SQL优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/git-brief/" rel="next" title="Git 常用操作">
+                <i class="fa fa-chevron-left"></i> Git 常用操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/avatar.gif"
+               alt="YaFey" />
+          <p class="site-author-name" itemprop="name">YaFey</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives/">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yafey" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              推荐阅读
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.w3schools.com/" title="w3schools.com" target="_blank">w3schools.com</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.zhangxinxu.com/" title="张鑫旭" target="_blank">张鑫旭</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wf.uisdc.com/cn/" title="google前端开发基础" target="_blank">google前端开发基础</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://notes.iissnan.com/" title="IIssNan Notes【Next主题 作者】" target="_blank">IIssNan Notes【Next主题 作者】</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://droidyue.com" title="【博客】小黑屋（安卓大牛）" target="_blank">【博客】小黑屋（安卓大牛）</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindhacks.cn/" title="刘未鹏|Mind Hacks【《暗时间》作者】" target="_blank">刘未鹏|Mind Hacks【《暗时间》作者】</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://wereadteam.github.io/" title="微信阅读团队博客" target="_blank">微信阅读团队博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.liuyufeng.tech/links/" title="【博客】别人的外链" target="_blank">【博客】别人的外链</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.liuyufeng.tech/post/2016-12-06-interview-persion.html" title="【文章】假如我是面试官" target="_blank">【文章】假如我是面试官</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、选择最有效率的表名顺序-只在基于规则的优化器中有效"><span class="nav-number">1.</span> <span class="nav-text">1、选择最有效率的表名顺序(只在基于规则的优化器中有效)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、WHERE子句中的连接顺序"><span class="nav-number">2.</span> <span class="nav-text">2、WHERE子句中的连接顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、SELECT子句中避免使用-‘-‘"><span class="nav-number">3.</span> <span class="nav-text">3、SELECT子句中避免使用 ‘ * ‘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、减少访问数据库的次数"><span class="nav-number">4.</span> <span class="nav-text">4、减少访问数据库的次数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、在SQL-Plus-SQLForms和ProC中重新设置ARRAYSIZE参数-可以增加每次数据库访问的检索数据量-建议值为200"><span class="nav-number">5.</span> <span class="nav-text">5、在SQL*Plus , SQLForms和ProC中重新设置ARRAYSIZE参数, 可以增加每次数据库访问的检索数据量 ,建议值为200</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、使用DECODE函数来减少处理时间"><span class="nav-number">6.</span> <span class="nav-text">6、使用DECODE函数来减少处理时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、整合简单-无关联的数据库访问"><span class="nav-number">7.</span> <span class="nav-text">7、整合简单,无关联的数据库访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、删除重复记录"><span class="nav-number">8.</span> <span class="nav-text">8、删除重复记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、用TRUNCATE替代DELETE"><span class="nav-number">9.</span> <span class="nav-text">9、用TRUNCATE替代DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、尽量多使用COMMIT"><span class="nav-number">10.</span> <span class="nav-text">10、尽量多使用COMMIT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11、用Where子句替换HAVING子句"><span class="nav-number">11.</span> <span class="nav-text">11、用Where子句替换HAVING子句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12、-减少对表的查询"><span class="nav-number">12.</span> <span class="nav-text">12、 减少对表的查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13、通过内部函数提高SQL效率"><span class="nav-number">13.</span> <span class="nav-text">13、通过内部函数提高SQL效率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14、使用表的别名-Alias"><span class="nav-number">14.</span> <span class="nav-text">14、使用表的别名(Alias)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15、-用EXISTS替代IN、用NOT-EXISTS替代NOT-IN"><span class="nav-number">15.</span> <span class="nav-text">15、 用EXISTS替代IN、用NOT EXISTS替代NOT IN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16、识别’低效执行’的SQL语句"><span class="nav-number">16.</span> <span class="nav-text">16、识别’低效执行’的SQL语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17、用索引提高效率"><span class="nav-number">17.</span> <span class="nav-text">17、用索引提高效率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18、用EXISTS替换DISTINCT"><span class="nav-number">18.</span> <span class="nav-text">18、用EXISTS替换DISTINCT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19、sql语句用大写的；因为oracle总是先解析sql语句，把小写的字母转换成大写的再执行"><span class="nav-number">19.</span> <span class="nav-text">19、sql语句用大写的；因为oracle总是先解析sql语句，把小写的字母转换成大写的再执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20、在java代码中尽量少用连接符“＋”连接字符串！"><span class="nav-number">20.</span> <span class="nav-text">20、在java代码中尽量少用连接符“＋”连接字符串！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21、避免在索引列上使用NOT-通常"><span class="nav-number">21.</span> <span class="nav-text">21、避免在索引列上使用NOT 通常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22、避免在索引列上使用计算"><span class="nav-number">22.</span> <span class="nav-text">22、避免在索引列上使用计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23、用-gt-替代-gt"><span class="nav-number">23.</span> <span class="nav-text">23、用>=替代></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24、用UNION替换OR-适用于索引列"><span class="nav-number">24.</span> <span class="nav-text">24、用UNION替换OR (适用于索引列)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25、用IN来替换OR"><span class="nav-number">25.</span> <span class="nav-text">25、用IN来替换OR </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#26、避免在索引列上使用IS-NULL和IS-NOT-NULL"><span class="nav-number">26.</span> <span class="nav-text">26、避免在索引列上使用IS NULL和IS NOT NULL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27、-总是使用索引的第一个列"><span class="nav-number">27.</span> <span class="nav-text">27、 总是使用索引的第一个列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#28、用UNION-ALL-替换UNION-如果有可能的话"><span class="nav-number">28.</span> <span class="nav-text">28、用UNION-ALL 替换UNION ( 如果有可能的话)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#29、用WHERE替代ORDER-BY："><span class="nav-number">29.</span> <span class="nav-text">29、用WHERE替代ORDER BY：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#30、避免改变索引列的类型"><span class="nav-number">30.</span> <span class="nav-text">30、避免改变索引列的类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#31、需要当心的WHERE子句"><span class="nav-number">31.</span> <span class="nav-text">31、需要当心的WHERE子句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32、a-如果检索数据量超过30-的表中记录数-使用索引将没有显著的效率提高"><span class="nav-number">32.</span> <span class="nav-text">32、a. 如果检索数据量超过30%的表中记录数.使用索引将没有显著的效率提高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33、避免使用耗费资源的操作"><span class="nav-number">33.</span> <span class="nav-text">33、避免使用耗费资源的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#34、优化GROUP-BY"><span class="nav-number">34.</span> <span class="nav-text">34、优化GROUP BY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#35、Select-Count-和Select-Count-1-区别"><span class="nav-number">35.</span> <span class="nav-text">35、Select Count (*)和Select Count(1) 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#36、IS-NULL-与-IS-NOT-NULL"><span class="nav-number">36.</span> <span class="nav-text">36、IS NULL 与 IS NOT NULL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37、联接列"><span class="nav-number">37.</span> <span class="nav-text">37、联接列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#38、Order-by语句"><span class="nav-number">38.</span> <span class="nav-text">38、Order by语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#39、-NOT"><span class="nav-number">39.</span> <span class="nav-text">39、 NOT</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YaFey</span>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共34.8k字</span>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://yafey.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://hyf.js.org/39-tips-about-SQL-optimize/';
+          this.page.identifier = '39-tips-about-SQL-optimize/';
+          this.page.title = '39个必知必会的SQL 性能调优方法';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yafey.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("e398NdJJbfTOrWP2bmvTyNbm-gzGzoHsz", "fzlX9bGXOwTG55FXu3fIyzpP");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/blog/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/blog/js/src/love.js"></script>
+
+</body>
+</html>
