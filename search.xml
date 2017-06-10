@@ -24,6 +24,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Hexo 主题同步]]></title>
+    <url>%2Fblog%2F2017-06-06.Hexo-theme-sync%2F</url>
+    <content type="text"><![CDATA[主题同步的时候肯定会产生冲突，不要害怕冲突，有冲突是好事，还能增强对 Git 的使用，只能这样安慰自己了。 关于 主题 同步，考虑了好几天， 还是采用这个方案吧。 参考 ： 同步hexo主题 主题作者一直在增加新功能，我偶尔会修改下主题的样式，如何应用到我自己的站点里？其实就是git的submodule的用法。 12345678910111213# 首先clone我自己的 repo 到 Hexo 的根目录 ， 注意最后的 ` themes/next`git clone &lt;hexo-theme-next@bitbucket.org&gt; themes/next# cd themes/next 并 添加一个github的remotecd themes/nextgit remote add github git@github.com:iissnan/hexo-theme-next.git # 注意这是不是 origin , origin 其实是默认的别名# 将作者的一些更新合并到我自己的分支git pull github master # 注意这是不是 origingit checkout foolbeargit merge master# 肯定会有些冲突，解决冲突后commitgit commit -m "xxx"# 修改后的foolbear分支push到我自己的repogit push origin foolbear 以下操作在我自己笔记本上 123cd themes/nextgit pullgit checkout foolbear 概念上是很简单的，只是记录下。]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next 主题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Git 常用操作]]></title>
     <url>%2Fblog%2F2017-06-06.git-brief%2F</url>
     <content type="text"><![CDATA[git 初始化（以下命令在 Git Bash中操作）添加 Coding 账户 SSH 公钥 TL;DR [^1] 参考 ： coding 帮助中心 生成公钥打开命令行终端输入ssh-keygen -t rsa -C “username@example.com”,( 注册的邮箱)，接下来点击enter键即可（也可以输入密码）。 12345ssh-keygen -t rsa -b 4096 -C "your_email@example.com"# Creates a new ssh key, using the provided email as a label# Generating public/private rsa key pair.Enter file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter] // 因为有多个git 仓库，所以 推荐跟仓库名及使用的电脑相关， 如：coding_pcEnter passphrase (empty for no passphrase): 成功之后 1234Your identification has been saved in /Users/you/.ssh/id_rsa.# Your public key has been saved in /Users/you/.ssh/id_rsa.pub.# The key fingerprint is:# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com 添加公钥 本地打开 id_rsa.pub 文件，复制其中全部内容，填写到SSH_RSA公钥key下的一栏，公钥名称可以随意起名字。 完成后点击“添加”，然后输入密码或动态码即可添加完成。 完成后在命令行测试，首次建立链接会要求信任主机。 ssh -T git@git.coding.net 12~/git $ ssh -T git@git.coding.netHello yafey! You've connected to Coding.net via SSH successfully! 【知识点】多个账户配置 （如 github + coding）如果需要使用多个账户建议生成多个公钥，可以在 ~/.ssh/config文件中加上下边一段 12345# 该文件用于配置私钥对应的服务器Host git.coding.netUser xxxx@email.com # 这里 也可以配置成 `User git`PreferredAuthentications publickeyIdentityFile ~/.ssh/coding_rsa # 生成的非默认地址的公钥存放点 git clone --recursive好像是会把 submodule 也更新好， 待验证。 git 初始化项目在命令行中创建 Git 仓库 12345678mkdir HexoBlogSourcecd HexoBlogSourcegit initecho "# HexoBlogSource" &gt;&gt; README.mdgit add README.mdgit commit -m "first commit"git remote add origin https://git.coding.net/yafey/HexoBlogSource.gitgit push -u origin master 已有项目 12git remote add origin https://git.coding.net/yafey/HexoBlogSource.gitgit push -u origin master git 常用操作集锦tag remote branch HEAD directly 参考 ： Git: Is there a way to tag remote branch HEAD directly by commit id? No real need to mess with local tags, just do the rewrite while pushing. 12# 替换下面的 &lt;&gt; 中的内容， 如果只有一个 remote ，origin 不用替换。git push &lt;origin&gt; refs/remotes/&lt;origin&gt;/&lt;branch1&gt;:refs/tags/&lt;tagged-branch1&gt; [^1]: Too Long; Don’t Read的缩写，换成中国话，就是太长了，读不下去的意思。 网络上的文章都太长了？ @2012-11-27 09:30 根据字典解释，“TL;DR”发源自网络。一般用于回复别人写得太多，反而让人抓不住重点，现在有的人把它放在一段话的开头，代表“长话短说”的意思——如今不少服务都直接以“TL;DR”为命名，把网络上一篇很长的报道，缩短成简单的三两句话，让人快速抓住文章的精华。]]></content>
@@ -43,18 +55,6 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hexo 主题同步]]></title>
-    <url>%2Fblog%2F2017-06-06.Hexo-theme-sync%2F</url>
-    <content type="text"><![CDATA[主题同步的时候肯定会产生冲突，不要害怕冲突，有冲突是好事，还能增强对 Git 的使用，只能这样安慰自己了。 关于 主题 同步，考虑了好几天， 还是采用这个方案吧。 参考 ： 同步hexo主题 主题作者一直在增加新功能，我偶尔会修改下主题的样式，如何应用到我自己的站点里？其实就是git的submodule的用法。 12345678910111213# 首先clone我自己的 repo 到 Hexo 的根目录 ， 注意最后的 ` themes/next`git clone &lt;hexo-theme-next@bitbucket.org&gt; themes/next# cd themes/next 并 添加一个github的remotecd themes/nextgit remote add github git@github.com:iissnan/hexo-theme-next.git # 注意这是不是 origin , origin 其实是默认的别名# 将作者的一些更新合并到我自己的分支git pull github master # 注意这是不是 origingit checkout foolbeargit merge master# 肯定会有些冲突，解决冲突后commitgit commit -m "xxx"# 修改后的foolbear分支push到我自己的repogit push origin foolbear 以下操作在我自己笔记本上 123cd themes/nextgit pullgit checkout foolbear 概念上是很简单的，只是记录下。]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Next 主题</tag>
       </tags>
   </entry>
   <entry>
@@ -164,14 +164,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[HelloHexo Test]]></title>
-    <url>%2Fblog%2F2017-05-28.HelloHexo-Test%2F</url>
-    <content type="text"><![CDATA[测试 1Git submodules: Specify a branch/taghttps://stackoverflow.com/questions/1777854/git-submodules-specify-a-branch-tagumläute refines dtmland’s command with a simplified version in the comments:1git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)' multiple lines:123git submodule foreach -q --recursive \ 'git checkout \ $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)' GETTING GIT SUBMODULE TO TRACK A BRANCH (add submodule 的步骤)https://www.activestate.com/blog/2014/05/getting-git-submodule-track-branch 删除 submodule : git rm --cached &lt;mysubmodule&gt; add submodule : git submodule add --force -b BUAT &lt;git url&gt; &lt;submodule path&gt; Add a submodule which can’t be removed from the indexhttps://stackoverflow.com/questions/12218420/add-a-submodule-which-cant-be-removed-from-the-index If the output adding a new submodule is: 12345678 #'FolderName' already exists in the index # Tip the next commandsgit ls-files --stage # The output will be something similar to:160000 d023657a21c1bf05d0eeaac6218eb5cca8520d16 0 FolderName # Then, to remove the folder index tip:git rm -r --cached FolderName #Try again add the submodule]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Hello World]]></title>
     <url>%2Fblog%2F2017-05-28.hello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
@@ -181,6 +173,14 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Doc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[HelloHexo Test]]></title>
+    <url>%2Fblog%2F2017-05-28.HelloHexo-Test%2F</url>
+    <content type="text"><![CDATA[测试 1Git submodules: Specify a branch/taghttps://stackoverflow.com/questions/1777854/git-submodules-specify-a-branch-tagumläute refines dtmland’s command with a simplified version in the comments:1git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)' multiple lines:123git submodule foreach -q --recursive \ 'git checkout \ $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)' GETTING GIT SUBMODULE TO TRACK A BRANCH (add submodule 的步骤)https://www.activestate.com/blog/2014/05/getting-git-submodule-track-branch 删除 submodule : git rm --cached &lt;mysubmodule&gt; add submodule : git submodule add --force -b BUAT &lt;git url&gt; &lt;submodule path&gt; Add a submodule which can’t be removed from the indexhttps://stackoverflow.com/questions/12218420/add-a-submodule-which-cant-be-removed-from-the-index If the output adding a new submodule is: 12345678 #'FolderName' already exists in the index # Tip the next commandsgit ls-files --stage # The output will be something similar to:160000 d023657a21c1bf05d0eeaac6218eb5cca8520d16 0 FolderName # Then, to remove the folder index tip:git rm -r --cached FolderName #Try again add the submodule]]></content>
+      <tags>
+        <tag>test</tag>
       </tags>
   </entry>
 </search>
