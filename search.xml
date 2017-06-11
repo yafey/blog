@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[【转】程序员必备的六本书]]></title>
+    <url>%2Fblog%2F2017-06-11.programmer-6-bibei-books%2F</url>
+    <content type="text"><![CDATA[我喜欢读书，并且偏爱读传统的纸质书籍（看着电脑忙乎了一天，不喜欢继续盯着电脑或者手机读书了），因此我经常买一些书来读。到目前为止，我已经买下了各类书籍50本左右了，花了有4000多RMB。有些书是一时心血来潮，买来之后就没怎么看，但有些好书，看过之后，或许只是有那么一点有触动，但带来的价值是很高的，它让我明白前进的方向并教导我怎么走向目标。话说钱不是省出来的，得赚，更得学会花钱。我觉得，在书籍阅读上花钱，是很值得的。在此分享一些我认为好的书籍给朋友们，希望对你们有所帮助。 改变思想的大作《浪潮之巅》我唯一一本完整读完的书籍，^_^，吴军博士介绍了IT行业的发展历史，并讲解了很多典型的巨头公司，最后还对未来做了展望。这本书的内容不限于IT行业，对IT背后的银行、风投等做了深刻的描述，还介绍了其他的高科技产业，比如医药。现在时代的企业竞争，已经不是同行业的竞争了，跨界竞争不时的发生，这本书对于开阔眼界很有帮助。 《大数据时代：生活、工作与思维的大变革》这本书同样是开阔眼界、转变思想的书（思想的变更很重要，技术的更新随后）。不过略微显得啰嗦了些。现在云计算和大数据炒的很热，看这本书可以了解到很多深层次的东西。 程序员晋级之路《IT项目经理成长手记》程序员需要晋级，如果要向项目经理方向发展，此书很实用。这本书介绍了项目管理的很多理论以及实战的工具（之前我喜欢用各种软件工具，现在越来越发现，真正的工具不一定是软件，更多的是一种资料的整理方式，例如某种格式的表格等），此外还介绍了项目管理的软知识，这点很实用。 如果对项目经理没兴趣，但做项目的同学，还是应该了解项目管理的知识的，只有管理的和被管理的都了解管理是怎么回事的情况下，管理工作才能更好的进行，此时项目团队就向着管理项目进发，而不是陷于团队的内部管理上（甚至可以认为是内耗）。 《从技术走向管理 李元芳履职记》这本书是技术人员（程序员、架构师等等）转向部门经理的参考工具。当然，并非你要有当经理的意愿或者有晋级经理的机会才需要学习，作为被管理者，能够让管理者省心省力也是很重要的。在项目团队中，并非只有项目经理是管理者，同样在公司部门中，并非只有部门经理是管理者，每个员工都有培训、指导同事的机会，都有需要向同事需求帮助的机会，老人带新人也是一种管理。这本书介绍的更多的是管理的软技能，对于所有职场人员来说，学习沟通等是必须的。 这本书同样是以小说体的形式讲述的，很容易学习。但此类知识，重在实践，要多多实践，多多体会。 个人管理《高效能人士的七个习惯》小时候成绩好，长辈们会夸赞聪明，高中、大学时候如果成绩好，别人会评价你很努力。事实上，高中大学里，如果你努力学习了，成绩自然会好的，但是工作了之后，不是光靠努力就可以的。在工作中，我们的自主选择的余地更大了，所以走对路子很重要，找到捷径很重要，提高效率很重要，不能光靠吃苦努力了。 当然，踏踏实实的做技术，加班加点的攻坚很重要，但更多的时候，我们可以停下来，想一想怎么做更有效。 其他《编程之美》这本书我只能说是买后发现我没兴趣读，并不能说这书不好。 这本书更多的是算法逻辑方面的，可能对技术面试或者纯技术朋友们有帮助。如果你是一心一意做技术，而且是做类似于SqlServer、Office这类软件的开发，那你可以学习如何写出高效的代码。但是一般的码农朋友们，大家的产品或者项目，技术经常不是最重要的。 作者：马洪彪出处：cnblogs.com/mahongbiao/]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>book</tag>
+        <tag>程序员</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[jxy.me分享的 《二手前端心得》等]]></title>
     <url>%2Fblog%2F2017-06-11.shared-by-jxy-me%2F</url>
     <content type="text"><![CDATA[说回正事，一直想写些长篇大论，如果在blog上写，写一篇文章显得太长；如果分成多篇，又要在标题上加上“1/2/3”之类的序号，很low，想看时也不方便。正好最近发现了GitBook，觉得这种写作方式很好，干脆在gitbook上写吧，类似写一本书的形式，相同主题的文章都聚合在一起，看起来方便。其实gitbook本来是用来多人协作的，被我用来当blog了。。。blog本身就只写一些能单独成篇的文章，和一些思考吧。 本篇文章用来做个汇总，在menubar中新增个入口，开的坑都会列在这里，不定期更新。 另外要吐槽下NexT主题的图标，用的linecons，但居然把不用的图标都删除了。我本来想选个书籍的图标的，但没有合适的，只能选择个铅笔的。如果要自己新增图标，还要去编辑字体文件，实在懒得折腾了。 《Guava豆知识》 进度为0 地址：https://www.gitbook.com/book/jiangxy/guava-tips/details 进度：0% 备注：基于18.0版本 Guava一直是我最喜欢的java类库，没有之一。但工作中却见得较少。所以打算总结下guava的各种用法。其实guava的很多思想已经被吸收进jdk了吧。我不打算翻译官方文档，首先官方文档本身就不够详细，从googlecode迁移到github后，wiki的内容好像丢了很多。。。其次很多人已经翻译过官方文档了。我是打算看遍guava的源码，结合自身的一些使用经验，总结下常见的用法。看源码的过程也是自己学习的过程。其实从源码中能翻出很多好玩的东西，很多工具类官方都没有文档。虽然API可能不稳定就是了。如果这次搞guava顺利的话，打算以后把apache commons系列也这么搞一次。基于18.0版本。 《LeetCode Gossip》 地址：https://www.gitbook.com/book/jiangxy/leetcode-gossip/details 进度：10% 备注：基于java 其实就是leetcode题解，总结下解题的思路，附加各种吐槽。其实主要是吐槽。。。本职不能忘。但我本身是算法弱鸡，所以也不追求算法速度了，能AC就好，未必是最优的解法。之前只刷了50多道题，还有很多水题，借这个机会，强迫自己把leetcode重刷一遍，复习下算法。 分享一些书籍借着开坑的机会，分享我之前看过的一些书吧。书上有我的注释&amp;吐槽，这个是个人习惯。。。也是不定期更新。另外我习惯看最新版的，所以会有很多是英文版的。 坑爹的是，很多注释是我以前用windows时用foxit reader加的，在mac下显示会有些问题。 《HBase权威指南》中文版 《Hadoop权威指南》英文第三版 《Hadoop.Application.Architectures》英文版 以上是比较完整的看过的，注释也比较多，其他的还在整理。另外因为是pirated edition，请低调。。。本来想放在dropbox的，但转念一想会不会被封啊，还是放baidu吧。。。 一些文档顺便分享自己写的一些文档吧，主要是一些内部分享和调研。有些简略，有些详细。 原作者放在 baidu 网盘上的。 整理了一些暂时用到的， 如： 二手前端心得 DNS 原理&amp;安全 Google Analytics Hadoop和Mapreduce YARN代码分析 PowerDrill&amp;Tenzing Tenzing Muppet Twitter uni-log Google Prediction API Google Analytics | @blog DNS原理&amp;安全 | @blog 二手前端心得 | 二手前端心得@blog]]></content>
@@ -169,20 +181,12 @@
   <entry>
     <title><![CDATA[Tools]]></title>
     <url>%2Fblog%2F2017-05-31.tools%2F</url>
-    <content type="text"><![CDATA[Web tool.oschina Bootcss 前端开发资源导航 Linux explainshell Miscellaneous (杂项) Youtube downloader 伪射手字幕 谷粉搜搜-谷歌替代品 【c#版】我为开源做贡献，网页正文提取——Html2Article 【php版】如何将CSDN的文章转成.md的markdown文件 GitPage 上的镜像React 【推荐】胡子大哈的 《React 小书》 | 自己github镜像 ES6 《ES6 标准入门》（第二版）出版了 by 阮一峰 | 自己github镜像 参考自 ： http://www.zipperary.com/tools/ 临时链接 ： bk.html]]></content>
+    <content type="text"><![CDATA[Web tool.oschina Bootcss 前端开发资源导航 Linux explainshell Miscellaneous (杂项) Youtube downloader 伪射手字幕 谷粉搜搜-谷歌替代品 【c#版】我为开源做贡献，网页正文提取——Html2Article 【php版】如何将CSDN的文章转成.md的markdown文件 玩转Google: 我有特殊的使用方式 我的时间管理与方法论 GitPage 上的镜像React 【推荐】胡子大哈的 《React 小书》 | 自己github镜像 ES6 《ES6 标准入门》（第二版）出版了 by 阮一峰 | 自己github镜像 参考自 ： http://www.zipperary.com/tools/ 临时链接 ： bk.html]]></content>
       <categories>
         <category>tools</category>
       </categories>
       <tags>
         <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[HelloHexo Test]]></title>
-    <url>%2Fblog%2F2017-05-28.HelloHexo-Test%2F</url>
-    <content type="text"><![CDATA[测试 1Git submodules: Specify a branch/taghttps://stackoverflow.com/questions/1777854/git-submodules-specify-a-branch-tagumläute refines dtmland’s command with a simplified version in the comments:1git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)' multiple lines:123git submodule foreach -q --recursive \ 'git checkout \ $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)' GETTING GIT SUBMODULE TO TRACK A BRANCH (add submodule 的步骤)https://www.activestate.com/blog/2014/05/getting-git-submodule-track-branch 删除 submodule : git rm --cached &lt;mysubmodule&gt; add submodule : git submodule add --force -b BUAT &lt;git url&gt; &lt;submodule path&gt; Add a submodule which can’t be removed from the indexhttps://stackoverflow.com/questions/12218420/add-a-submodule-which-cant-be-removed-from-the-index If the output adding a new submodule is: 12345678 #'FolderName' already exists in the index # Tip the next commandsgit ls-files --stage # The output will be something similar to:160000 d023657a21c1bf05d0eeaac6218eb5cca8520d16 0 FolderName # Then, to remove the folder index tip:git rm -r --cached FolderName #Try again add the submodule]]></content>
-      <tags>
-        <tag>test</tag>
       </tags>
   </entry>
   <entry>
@@ -195,6 +199,14 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Doc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[HelloHexo Test]]></title>
+    <url>%2Fblog%2F2017-05-28.HelloHexo-Test%2F</url>
+    <content type="text"><![CDATA[测试 1Git submodules: Specify a branch/taghttps://stackoverflow.com/questions/1777854/git-submodules-specify-a-branch-tagumläute refines dtmland’s command with a simplified version in the comments:1git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)' multiple lines:123git submodule foreach -q --recursive \ 'git checkout \ $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)' GETTING GIT SUBMODULE TO TRACK A BRANCH (add submodule 的步骤)https://www.activestate.com/blog/2014/05/getting-git-submodule-track-branch 删除 submodule : git rm --cached &lt;mysubmodule&gt; add submodule : git submodule add --force -b BUAT &lt;git url&gt; &lt;submodule path&gt; Add a submodule which can’t be removed from the indexhttps://stackoverflow.com/questions/12218420/add-a-submodule-which-cant-be-removed-from-the-index If the output adding a new submodule is: 12345678 #'FolderName' already exists in the index # Tip the next commandsgit ls-files --stage # The output will be something similar to:160000 d023657a21c1bf05d0eeaac6218eb5cca8520d16 0 FolderName # Then, to remove the folder index tip:git rm -r --cached FolderName #Try again add the submodule]]></content>
+      <tags>
+        <tag>test</tag>
       </tags>
   </entry>
 </search>
