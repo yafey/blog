@@ -9,8 +9,8 @@
         <category>js</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>CSS</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -27,17 +27,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【转】Hexo博客搭建之引用站内文章]]></title>
-    <url>%2Fblog%2F2017-06-15.Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%B9%8B%E5%BC%95%E7%94%A8%E7%AB%99%E5%86%85%E6%96%87%E7%AB%A0%2F</url>
-    <content type="text"><![CDATA[在写文章的过程中，有时候需要引用站内的其他文章。可以通过内置的标签插件的语法post_link来实现引用。 1&#123;% post_link 文章文件名（不要后缀） 文章标题（可选） %&#125; 举例 引用 Hello.md 1&#123;% post_link Hello %&#125; 或者 1&#123;% post_link Hello 你好 %&#125; 转自 ： https://yanyinhong.github.io/2017/05/03/Refer-article-in-hexo-post/]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[【转】Npm读取config配置的优先级]]></title>
     <url>%2Fblog%2F2017-06-15.npm%E8%AF%BB%E5%8F%96config%E9%85%8D%E7%BD%AE%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7%2F</url>
     <content type="text"><![CDATA[npm可以从多处读取npm的配置信息。不同地方的npm配置存在着优先级顺序。 下面从优先级高到低的顺序来介绍一下各配置。 命令行1&gt; npm run commend --proxy http://server:port 命令行中将proxy的值设为http://server:port。 环境变量以npm_config_为前缀的环境变量会被识别为npm的配置属性。如设置proxy。 1npm_config_proxy=http://server:port 项目.npmrc文件存在于项目根目录下的.npmrc配置文件/path/to/project/.npmrc。 用户.npmrc文件存在于用户根目录下的.npmrc文件。如windows下是%USERPROFILE%/.npmrc，MAC下是$HOME/.npmrc。 全局.npmrc文件存在于Node全局的.npmrc文件。如windows下$PREFIX/etc/.npmrc，MAC下是%APPDATA%/etc/.npmrc。 npm内置的.npmrc文件存在于npm包的内置.npmrc文件/path/to/npm/.npmrc。 npm的默认配置npm本身有默认配置。对于以上情况下都没有设置的配置，npm会使用默认配置。 转自 ：https://yanyinhong.github.io/2017/05/01/The-priority-of-npm-config/]]></content>
@@ -46,20 +35,8 @@
         <category>Node</category>
       </categories>
       <tags>
-        <tag>Node</tag>
         <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[【转】并发与并行的区别]]></title>
-    <url>%2Fblog%2F2017-06-15.%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%B9%B6%E8%A1%8C%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
-    <content type="text"><![CDATA[并发（concurrency）和并行（parallelism）是两个完全不同的概念。 并发，从它的英语本意来看是竞争的意思。这是理解它的关键。没有竞争，并发就无从谈起。为什么会有竞争，那是因为资源是有限的。资源是一方面是有限的，一方面还要满足不同主体的需求，这就会遇到资源的共享。这样以来，就要指定一些规则，让大家有效，并且安全的利用这些资源。这里的并字，强调的是一种秩序。 并行，和竞争没有半毛钱的关系。并行指的是一个任务的属性，看它能不能被化分成相互独立，可以同时完成的小任务。比如说，有一个任务，是要数一本书一共有多少字，那么这个任务就可以被分成很多份，让小明数十页，小微数另外十页。此处的并字，侧重点是指任务能不能可分，能不能同时进行，来达到加速的目的。 两者，不是一个概念，不对立存在。不同的用法是为了达到不同的目的。一个很好的例子，就是JVM中不同的垃圾回收算法，有的是并发的，有的是并行的。 转自 ： http://hui-wang.info/2014/09/02/并发与并行的区别/]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>并发</tag>
-        <tag>并行</tag>
+        <tag>Node</tag>
       </tags>
   </entry>
   <entry>
@@ -76,6 +53,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[【转】Hexo博客搭建之引用站内文章]]></title>
+    <url>%2Fblog%2F2017-06-15.Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%B9%8B%E5%BC%95%E7%94%A8%E7%AB%99%E5%86%85%E6%96%87%E7%AB%A0%2F</url>
+    <content type="text"><![CDATA[在写文章的过程中，有时候需要引用站内的其他文章。可以通过内置的标签插件的语法post_link来实现引用。 1&#123;% post_link 文章文件名（不要后缀） 文章标题（可选） %&#125; 举例 引用 Hello.md 1&#123;% post_link Hello %&#125; 或者 1&#123;% post_link Hello 你好 %&#125; 转自 ： https://yanyinhong.github.io/2017/05/03/Refer-article-in-hexo-post/]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[【转】节制你的激情]]></title>
     <url>%2Fblog%2F2017-06-15.%E8%8A%82%E5%88%B6%E4%BD%A0%E7%9A%84%E6%BF%80%E6%83%85%2F</url>
     <content type="text"><![CDATA[工作了四年以后，我升职为高级软件工程师。这里的升职不是管理上的提升，其实我现在只需要管好我自己，而是对一个软件工程师成熟度的认可。一个高级工程师，较之一个刚毕业的新手而言，他应该能够独立的推进一个项目，从技术，到和其他组的交流协作，都能够独当一面。我最近遇到的一个难题，就是如何和产品经理有效的协作来保证项目的进度。后来学习到一个秘诀，就是要别人的承诺。 具体的故事，是这样发生的。我和项目经理，一起制定使用者剧本(user story)，会议结束的时候，我们分了工。我的项目经理，要先在这些剧本里，加入验收测试，然后，我再预估它们的复杂度。换句话说，我的任务依赖着他的，他做不完，我就起不了步。 当天下午，大家很高心的散会了。第二天，我问他测试写明白了吗。他说他明天给我，我说好吧。可第三天，依旧没写好。我问他，他又说再等一天。三天过去了，剧本没写好，没测试，我没开工。 后来我的上司看到了，略有不爽，他说，怎么都第四天了，还没有开工。我当时想辩解，说不是我的错，因为我得等别人的活完了才能开始自己的，我是被别人耽误了。后来想辩解也没有意义，特别是这种推卸责任的辩解更没有意义。我的产品经理，当时也意识到自己确实没做好，在第四天，他写了测试。 后来，我找到了老板，高级高级工程师，问他我在这种情况下，应该怎么办？他给我讲了一下他作为新手时犯的错误，也给我说了一个解决办法。 在他是新手的时候，如果他依赖的人太慢，我老板就自己替他人把活做了。这样进度会有，但不是长久之计。首先，替他人把活做了，僭越了不说，到时候万一你做的并不是人家的本意，之后还得重头再来，特别是这种产品经理写验收测试的活，程序员一定要让他们从产品，从用户的角度来写测试，不能以程序员对产品的理解去写。其次，即便替人做的好，可自己的精力毕竟有限，不能作为长久的打算。 所以不可取，那么什么可取呢？回到我的经历中来，第一天，大家高兴散会的时候，不能就那么散了，而要问清楚，你什么时候能给我一个满意的答复，我们需要对方的一个承诺。承诺的远近并不是问题。远了，说明他有优先级更高的事情要做，要么，我不能干等，要么，我们把问题上传给决策者来重新讨论优先级。近了，更好。承诺的重要性在于明确各方的责任点和责任段，是为了更有效的交流，不至于把时间用在等待里。 转自 ： http://hui-wang.info/2015/11/04/节制你的激情/]]></content>
@@ -84,6 +72,18 @@
       </categories>
       <tags>
         <tag>软技能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【转】并发与并行的区别]]></title>
+    <url>%2Fblog%2F2017-06-15.%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%B9%B6%E8%A1%8C%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"><![CDATA[并发（concurrency）和并行（parallelism）是两个完全不同的概念。 并发，从它的英语本意来看是竞争的意思。这是理解它的关键。没有竞争，并发就无从谈起。为什么会有竞争，那是因为资源是有限的。资源是一方面是有限的，一方面还要满足不同主体的需求，这就会遇到资源的共享。这样以来，就要指定一些规则，让大家有效，并且安全的利用这些资源。这里的并字，强调的是一种秩序。 并行，和竞争没有半毛钱的关系。并行指的是一个任务的属性，看它能不能被化分成相互独立，可以同时完成的小任务。比如说，有一个任务，是要数一本书一共有多少字，那么这个任务就可以被分成很多份，让小明数十页，小微数另外十页。此处的并字，侧重点是指任务能不能可分，能不能同时进行，来达到加速的目的。 两者，不是一个概念，不对立存在。不同的用法是为了达到不同的目的。一个很好的例子，就是JVM中不同的垃圾回收算法，有的是并发的，有的是并行的。 转自 ： http://hui-wang.info/2014/09/02/并发与并行的区别/]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>并发</tag>
+        <tag>并行</tag>
       </tags>
   </entry>
   <entry>
@@ -112,18 +112,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【转】你需要的是一个承诺]]></title>
-    <url>%2Fblog%2F2017-06-15.%E4%BD%A0%E9%9C%80%E8%A6%81%E7%9A%84%E6%98%AF%E4%B8%80%E4%B8%AA%E6%89%BF%E8%AF%BA%2F</url>
-    <content type="text"><![CDATA[工作了四年以后，我升职为高级软件工程师。这里的升职不是管理上的提升，其实我现在只需要管好我自己，而是对一个软件工程师成熟度的认可。一个高级工程师，较之一个刚毕业的新手而言，他应该能够独立的推进一个项目，从技术，到和其他组的交流协作，都能够独当一面。我最近遇到的一个难题，就是如何和产品经理有效的协作来保证项目的进度。后来学习到一个秘诀，就是要别人的承诺。 具体的故事，是这样发生的。我和项目经理，一起制定使用者剧本(user story)，会议结束的时候，我们分了工。我的项目经理，要先在这些剧本里，加入验收测试，然后，我再预估它们的复杂度。换句话说，我的任务依赖着他的，他做不完，我就起不了步。 当天下午，大家很高心的散会了。第二天，我问他测试写明白了吗。他说他明天给我，我说好吧。可第三天，依旧没写好。我问他，他又说再等一天。三天过去了，剧本没写好，没测试，我没开工。 后来我的上司看到了，略有不爽，他说，怎么都第四天了，还没有开工。我当时想辩解，说不是我的错，因为我得等别人的活完了才能开始自己的，我是被别人耽误了。后来想辩解也没有意义，特别是这种推卸责任的辩解更没有意义。我的产品经理，当时也意识到自己确实没做好，在第四天，他写了测试。 后来，我找到了老板，高级高级工程师，问他我在这种情况下，应该怎么办？他给我讲了一下他作为新手时犯的错误，也给我说了一个解决办法。 在他是新手的时候，如果他依赖的人太慢，我老板就自己替他人把活做了。这样进度会有，但不是长久之计。首先，替他人把活做了，僭越了不说，到时候万一你做的并不是人家的本意，之后还得重头再来，特别是这种产品经理写验收测试的活，程序员一定要让他们从产品，从用户的角度来写测试，不能以程序员对产品的理解去写。其次，即便替人做的好，可自己的精力毕竟有限，不能作为长久的打算。 所以不可取，那么什么可取呢？回到我的经历中来，第一天，大家高兴散会的时候，不能就那么散了，而要问清楚，你什么时候能给我一个满意的答复，我们需要对方的一个承诺。承诺的远近并不是问题。远了，说明他有优先级更高的事情要做，要么，我不能干等，要么，我们把问题上传给决策者来重新讨论优先级。近了，更好。承诺的重要性在于明确各方的责任点和责任段，是为了更有效的交流，不至于把时间用在等待里。 转自 ： http://hui-wang.info/2016/01/27/你需要的是一个承诺/]]></content>
-      <categories>
-        <category>职业规划</category>
-      </categories>
-      <tags>
-        <tag>软技能</tag>
-        <tag>交流技巧</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[常用CSS选择器速查表]]></title>
     <url>%2Fblog%2F2017-06-15.css-selector-cheat-sheet%2F</url>
     <content type="text"><![CDATA[常用CSS选择器速查表查看完整选择器列表，详见Selectors Level 3PS: *选择器要慎用，因为它是性能最低的一个CSS选择器。 模式 解释 初次定义的CSS版本 * 任意元素 2 E 类型为E的元素 1 E[foo] 类型为E，且具有属性foo的元素 2 E[foo=”bar”] 类型为E，且属性foo值为bar的元素 2 E[foo~=”bar”] 类型为E，且属性foo的值以空格分隔为值列表，列表中具有bar值的元素E 2 E[foo^=”bar”] 类型为E，且属性foo值以bar开头的元素 3 E[foo$=”bar”] 类型为E，且属性foo值以bar结尾的元素 3 E[foo*=”bar”] 类型为E，且属性foo值包含子字符串bar的元素 3 E[foo&#124;=”en”] 类型为E，且属性foo值以连字符“-”分隔成列表后，列表以en开头的元素 (&amp;#124;是 （竖）html 转义， 部分 md 转换有问题)[^1] 2 E:root 类型为E，且是文档的根元素 3 E:nth-child(n) 类型为E，且它是父元素的第n个子元素 3 E:nth-last-child(n) 类型为E，且它是父元素的倒数第n个元素 3 E:nth-of-type(n) 类型为E，且它是所有E兄弟元素的第n个 3 E:nth-last-of-type(n) 类型为E，且它是所有E兄弟元素的倒数第n个 3 E:first-child 类型为E，且它是父元素的第1个子元素 2 E:last-child 类型为E，且它是父元素的倒数第1个子元素 3 E:first-of-type 类型为E，且它是所有E兄弟元素中的第1个 3 E:last-of-type 类型为E，且它是所有E兄弟元素中的倒数第1个 3 E:only-child 类型为E，且它是父元素的唯一子元素 3 E:only-of-type 类型为E，且它是兄弟元素中的唯一一个类型为E的元素 3 E:empty 类型为E，且它没有子元素（包括文本元素） 3 E:link 作为超链接的元素E 1 E:visited 被执行了用户动作visited的元素E 1 E:active 被执行了用户动作active的元素E 1 and 2 E:hover 被执行了用户动作hover的元素E 1 and 2 E:focus 被执行了用户动作focus的元素E 1 and 2 E:target 相关URI目标的元素E 3 E:lang(fr) 使用语言fr的元素E 2 E:enabled 被enable的交互元素E 3 E:disabled 被disabled的交互元素E 3 E:checked 被checked过的交互元素E 3 E::first-line 元素E的首行字符 1 E:first-letter 元素E的首个字符 1 E::before 元素E的before伪元素 2 E::after 元素E的after伪元素 2 E.warning 类为warning的E元素 1 E#myid id为myid的E元素 1 E:not(s) 不满足选择器条件s的E元素 2 E F 元素E的所有后代F元素 1 E &gt; F 元素E的所有子F元素 2 E + F 元素E的紧邻F兄弟元素 2 E ~ F 元素E的兄弟F元素 3 markdwon 的表格中需要竖线“|”这样的特殊符号，咋办？1234567那就只能用html字符实体了： &amp;verbar; &amp;vert; &amp;VerticalLine; &amp;#x0007C; &amp;#124; 这五个，任选一个吧~ [^1]: markdwon 的表格中需要竖线“|”这样的特殊符号，详见： markdwon 的表格中需要竖线“|”这样的特殊符号，咋办？@v2ex http://www.asciitable.com/ 转自 ： https://yanyinhong.github.io/2017/04/30/CSS-selector-cheat-sheet/]]></content>
@@ -137,6 +125,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[【转】你需要的是一个承诺]]></title>
+    <url>%2Fblog%2F2017-06-15.%E4%BD%A0%E9%9C%80%E8%A6%81%E7%9A%84%E6%98%AF%E4%B8%80%E4%B8%AA%E6%89%BF%E8%AF%BA%2F</url>
+    <content type="text"><![CDATA[工作了四年以后，我升职为高级软件工程师。这里的升职不是管理上的提升，其实我现在只需要管好我自己，而是对一个软件工程师成熟度的认可。一个高级工程师，较之一个刚毕业的新手而言，他应该能够独立的推进一个项目，从技术，到和其他组的交流协作，都能够独当一面。我最近遇到的一个难题，就是如何和产品经理有效的协作来保证项目的进度。后来学习到一个秘诀，就是要别人的承诺。 具体的故事，是这样发生的。我和项目经理，一起制定使用者剧本(user story)，会议结束的时候，我们分了工。我的项目经理，要先在这些剧本里，加入验收测试，然后，我再预估它们的复杂度。换句话说，我的任务依赖着他的，他做不完，我就起不了步。 当天下午，大家很高心的散会了。第二天，我问他测试写明白了吗。他说他明天给我，我说好吧。可第三天，依旧没写好。我问他，他又说再等一天。三天过去了，剧本没写好，没测试，我没开工。 后来我的上司看到了，略有不爽，他说，怎么都第四天了，还没有开工。我当时想辩解，说不是我的错，因为我得等别人的活完了才能开始自己的，我是被别人耽误了。后来想辩解也没有意义，特别是这种推卸责任的辩解更没有意义。我的产品经理，当时也意识到自己确实没做好，在第四天，他写了测试。 后来，我找到了老板，高级高级工程师，问他我在这种情况下，应该怎么办？他给我讲了一下他作为新手时犯的错误，也给我说了一个解决办法。 在他是新手的时候，如果他依赖的人太慢，我老板就自己替他人把活做了。这样进度会有，但不是长久之计。首先，替他人把活做了，僭越了不说，到时候万一你做的并不是人家的本意，之后还得重头再来，特别是这种产品经理写验收测试的活，程序员一定要让他们从产品，从用户的角度来写测试，不能以程序员对产品的理解去写。其次，即便替人做的好，可自己的精力毕竟有限，不能作为长久的打算。 所以不可取，那么什么可取呢？回到我的经历中来，第一天，大家高兴散会的时候，不能就那么散了，而要问清楚，你什么时候能给我一个满意的答复，我们需要对方的一个承诺。承诺的远近并不是问题。远了，说明他有优先级更高的事情要做，要么，我不能干等，要么，我们把问题上传给决策者来重新讨论优先级。近了，更好。承诺的重要性在于明确各方的责任点和责任段，是为了更有效的交流，不至于把时间用在等待里。 转自 ： http://hui-wang.info/2016/01/27/你需要的是一个承诺/]]></content>
+      <categories>
+        <category>职业规划</category>
+      </categories>
+      <tags>
+        <tag>软技能</tag>
+        <tag>交流技巧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[【转】程序员必备的六本书]]></title>
     <url>%2Fblog%2F2017-06-11.programmer-6-bibei-books%2F</url>
     <content type="text"><![CDATA[我喜欢读书，并且偏爱读传统的纸质书籍（看着电脑忙乎了一天，不喜欢继续盯着电脑或者手机读书了），因此我经常买一些书来读。到目前为止，我已经买下了各类书籍50本左右了，花了有4000多RMB。有些书是一时心血来潮，买来之后就没怎么看，但有些好书，看过之后，或许只是有那么一点有触动，但带来的价值是很高的，它让我明白前进的方向并教导我怎么走向目标。话说钱不是省出来的，得赚，更得学会花钱。我觉得，在书籍阅读上花钱，是很值得的。在此分享一些我认为好的书籍给朋友们，希望对你们有所帮助。 改变思想的大作《浪潮之巅》我唯一一本完整读完的书籍，^_^，吴军博士介绍了IT行业的发展历史，并讲解了很多典型的巨头公司，最后还对未来做了展望。这本书的内容不限于IT行业，对IT背后的银行、风投等做了深刻的描述，还介绍了其他的高科技产业，比如医药。现在时代的企业竞争，已经不是同行业的竞争了，跨界竞争不时的发生，这本书对于开阔眼界很有帮助。 《大数据时代：生活、工作与思维的大变革》这本书同样是开阔眼界、转变思想的书（思想的变更很重要，技术的更新随后）。不过略微显得啰嗦了些。现在云计算和大数据炒的很热，看这本书可以了解到很多深层次的东西。 程序员晋级之路《IT项目经理成长手记》程序员需要晋级，如果要向项目经理方向发展，此书很实用。这本书介绍了项目管理的很多理论以及实战的工具（之前我喜欢用各种软件工具，现在越来越发现，真正的工具不一定是软件，更多的是一种资料的整理方式，例如某种格式的表格等），此外还介绍了项目管理的软知识，这点很实用。 如果对项目经理没兴趣，但做项目的同学，还是应该了解项目管理的知识的，只有管理的和被管理的都了解管理是怎么回事的情况下，管理工作才能更好的进行，此时项目团队就向着管理项目进发，而不是陷于团队的内部管理上（甚至可以认为是内耗）。 《从技术走向管理 李元芳履职记》这本书是技术人员（程序员、架构师等等）转向部门经理的参考工具。当然，并非你要有当经理的意愿或者有晋级经理的机会才需要学习，作为被管理者，能够让管理者省心省力也是很重要的。在项目团队中，并非只有项目经理是管理者，同样在公司部门中，并非只有部门经理是管理者，每个员工都有培训、指导同事的机会，都有需要向同事需求帮助的机会，老人带新人也是一种管理。这本书介绍的更多的是管理的软技能，对于所有职场人员来说，学习沟通等是必须的。 这本书同样是以小说体的形式讲述的，很容易学习。但此类知识，重在实践，要多多实践，多多体会。 个人管理《高效能人士的七个习惯》小时候成绩好，长辈们会夸赞聪明，高中、大学时候如果成绩好，别人会评价你很努力。事实上，高中大学里，如果你努力学习了，成绩自然会好的，但是工作了之后，不是光靠努力就可以的。在工作中，我们的自主选择的余地更大了，所以走对路子很重要，找到捷径很重要，提高效率很重要，不能光靠吃苦努力了。 当然，踏踏实实的做技术，加班加点的攻坚很重要，但更多的时候，我们可以停下来，想一想怎么做更有效。 其他《编程之美》这本书我只能说是买后发现我没兴趣读，并不能说这书不好。 这本书更多的是算法逻辑方面的，可能对技术面试或者纯技术朋友们有帮助。如果你是一心一意做技术，而且是做类似于SqlServer、Office这类软件的开发，那你可以学习如何写出高效的代码。但是一般的码农朋友们，大家的产品或者项目，技术经常不是最重要的。 作者：马洪彪出处：cnblogs.com/mahongbiao/]]></content>
@@ -144,8 +144,8 @@
         <category>阅读</category>
       </categories>
       <tags>
-        <tag>程序员</tag>
         <tag>book</tag>
+        <tag>程序员</tag>
       </tags>
   </entry>
   <entry>
@@ -173,14 +173,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Git 常用操作]]></title>
-    <url>%2Fblog%2F2017-06-06.git-brief%2F</url>
-    <content type="text"><![CDATA[git 初始化（以下命令在 Git Bash中操作）添加 Coding 账户 SSH 公钥 TL;DR [^1] 参考 ： coding 帮助中心 生成公钥打开命令行终端输入ssh-keygen -t rsa -C “username@example.com”,( 注册的邮箱)，接下来点击enter键即可（也可以输入密码）。 12345ssh-keygen -t rsa -b 4096 -C "your_email@example.com"# Creates a new ssh key, using the provided email as a label# Generating public/private rsa key pair.Enter file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter] // 因为有多个git 仓库，所以 推荐跟仓库名及使用的电脑相关， 如：coding_pcEnter passphrase (empty for no passphrase): 成功之后 1234Your identification has been saved in /Users/you/.ssh/id_rsa.# Your public key has been saved in /Users/you/.ssh/id_rsa.pub.# The key fingerprint is:# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com 添加公钥 本地打开 id_rsa.pub 文件，复制其中全部内容，填写到SSH_RSA公钥key下的一栏，公钥名称可以随意起名字。 完成后点击“添加”，然后输入密码或动态码即可添加完成。 完成后在命令行测试，首次建立链接会要求信任主机。 ssh -T git@git.coding.net 12~/git $ ssh -T git@git.coding.netHello yafey! You've connected to Coding.net via SSH successfully! 【知识点】多个账户配置 （如 github + coding）如果需要使用多个账户建议生成多个公钥，可以在 ~/.ssh/config文件中加上下边一段 12345# 该文件用于配置私钥对应的服务器Host git.coding.netUser xxxx@email.com # 这里 也可以配置成 `User git`PreferredAuthentications publickeyIdentityFile ~/.ssh/coding_rsa # 生成的非默认地址的公钥存放点 git clone --recursive好像是会把 submodule 也更新好， 待验证。 git 初始化项目在命令行中创建 Git 仓库 12345678mkdir HexoBlogSourcecd HexoBlogSourcegit initecho "# HexoBlogSource" &gt;&gt; README.mdgit add README.mdgit commit -m "first commit"git remote add origin https://git.coding.net/yafey/HexoBlogSource.gitgit push -u origin master 已有项目 12git remote add origin https://git.coding.net/yafey/HexoBlogSource.gitgit push -u origin master git 常用操作集锦tag remote branch HEAD directly 参考 ： Git: Is there a way to tag remote branch HEAD directly by commit id? No real need to mess with local tags, just do the rewrite while pushing. 12# 替换下面的 &lt;&gt; 中的内容， 如果只有一个 remote ，origin 不用替换。git push &lt;origin&gt; refs/remotes/&lt;origin&gt;/&lt;branch1&gt;:refs/tags/&lt;tagged-branch1&gt; [^1]: Too Long; Don’t Read的缩写，换成中国话，就是太长了，读不下去的意思。 网络上的文章都太长了？ @2012-11-27 09:30 根据字典解释，“TL;DR”发源自网络。一般用于回复别人写得太多，反而让人抓不住重点，现在有的人把它放在一段话的开头，代表“长话短说”的意思——如今不少服务都直接以“TL;DR”为命名，把网络上一篇很长的报道，缩短成简单的三两句话，让人快速抓住文章的精华。]]></content>
+    <title><![CDATA[【简要】记录搭建 Hexo 的一些步骤]]></title>
+    <url>%2Fblog%2F2017-06-06.Hexo-brief%2F</url>
+    <content type="text"><![CDATA[总想有个自己的地方记录一些东西， 兜兜转转，还是选择了GitHub Pages。试过Jekyll，可惜ruby跟我相性实在不合，折腾了半天也没搞明白。于是选择了Hexo。使用很简单，js也比ruby亲切些，但搭建过程中还是碰到一些问题，这里记录下。 安装 Node.js暂时略， 可参考 记录下搭建hexo的一些问题 by 自制node.js + npm绿色版 安装 Git略， 作为开发， 你电脑上都没有 Git ？ 教程网上一大把。 建议： 安装的时候， 不要选择 checkout Window ，commit Linux ， 这样自动转换 EOL 的 默认选项。 安装 Hexo 【重头戏开始了】写博客时 2017年6月6日23:46:34 的 版本信息 ，Hexo 不同的版本变化还挺大的。 12345678910111213PS ~\git\HexoBlogSource&gt; hexo versionhexo: 3.3.7hexo-cli: 1.0.3os: Windows_NT 10.0.14393 win32 x64http_parser: 2.7.0node: 6.9.2v8: 5.1.281.88uv: 1.9.1zlib: 1.2.8ares: 1.10.1-DEVicu: 57.1modules: 48openssl: 1.0.2j Hexo 官网 给出了 最简单的 安装步骤 (稍加整理) 1234567891011# npm安装时其实可以指定版本号npm install hexo-cli -ghexo init blogcd blog# 安装一些必要的依赖 ， 执行前看下 &lt;【知识点】在中国，npm 使用优化 &gt;npm installhexo s[erver] -p 80 # [] 方括号中的内容可省略# 可选，使用rss时才需要npm install hexo-generator-feed --save# 可选，生成sitemapnpm install hexo-generator-sitemap --save 【知识点】在中国，npm 使用优化 网络不好、被墙的话，npm会很慢，试试加参数--registry=http://r.cnpmjs.org，国内的镜像。 出现各种奇怪的错误的话，试试npm cache clear。 将 Npm 的源替换成淘宝的源 参考 ： 将 Npm 的源替换成淘宝的源 by sg.ff @2016年02月17日发布 在墙内久了，难免会碰到撞墙的时候，所幸国内也有众多 NPM 镜像可供选择，在大多数情况下我们可以使用国内的源（比如 淘宝 NPM 镜像 http://npm.taobao.org）去替换官方的源以加快下载包的速度。 不过呢，我们在发布自己的包的时候却需要将源修改回官方的 https://registry.npmjs.org 源。 1234567# 修改源地址为淘宝 NPM 镜像npm config set registry http://registry.npm.taobao.org/# 修改源地址为官方源npm config set registry https://registry.npmjs.org/ 安装 Next 主题 hexo的主题很多，但感觉好看的不多。。。最终选择了NexT，很喜欢这种简洁的风格，作者更新也很积极。 你会爱上 Next 的 。 Hexo 主题的同步目前是个问题， 详见 另一篇文章 《Hexo 主题同步》 Next 主题优化内容太多， 详见 另一篇文章 《Hexo Next 主题优化》 未解之谜 可能的原因： 参考自： Hexo部署常见问题解决方案 将自己的Blog文件夹使用Git来管理，需要注意一下几点。 如果主题是通过git管理的，需要将主题文件夹下的.git文件夹删除，才能同步Blog文件夹（.git文件夹是隐藏的，需要显示隐藏文件才能删除，Linux下需要rm -rf命令才能删除，Mac没用过，不清楚）。 按照Blog目录下自带的.gitignore文件，node_modules文件夹是不会同步的，所以同步之后需要自己再次进行npm install，但是注意，不要进行hexo init了，否则_config.yml全都白弄了。 可以看到 hexo init a 时， 会自动把 landscape 下载好， 日志中也打出了 Submodule &#39;themes/landscape&#39; (...) registered for path &#39;themes/landscape&#39; 这样的信息， 但是： 奇怪的就是 ， landscape 在 Hexo 根目录 用 git gui 命令 是可以看到 文件的， 但是 next 主题只显示 subproject 一个文件， 难道是因为 hexo init a 用了类似 git clone --recursive 的语法，然后就不作为一个 subproject 了？ 然后我把 landscape 目录删了， 按 Next 方式 clone 了一遍， landscape 目录也像 next 那样只显示 subproject 一个文件， 这样也好，减少了很多文件。 1234567891011121314151617181920212223242526272829303132333435363738PS ~\git&gt; hexo init aINFO Cloning hexo-starter to ~\git\aCloning into '~\git\a'...remote: Counting objects: 53, done.remote: Total 53 (delta 0), reused 0 (delta 0), pack-reused 53Unpacking objects: 100% (53/53), done.Submodule 'themes/landscape' (https://github.com/hexojs/hexo-theme-landscape.git) registered for path 'themes/landscape'Cloning into '~/git/a/themes/landscape'...remote: Counting objects: 775, done.remote: Total 775 (delta 0), reused 0 (delta 0), pack-reused 775Receiving objects: 100% (775/775), 2.53 MiB | 1.18 MiB/s, done.Resolving deltas: 100% (397/397), done.INFO Install dependencies��Ϣ: ���ṩ��ģʽ�޷��ҵ��ļ�npm WARN deprecated swig@1.4.2: This package is no longer maintainednpm WARN prefer global marked@0.3.6 should be installed with -g&gt; fsevents@1.1.1 install ~\git\a\node_modules\fsevents&gt; node install&gt; dtrace-provider@0.8.2 install ~\git\a\node_modules\dtrace-provider&gt; node scripts/install.js&gt; hexo-util@0.6.0 postinstall ~\git\a\node_modules\hexo-util&gt; npm run build:highlightnpm WARN invalid config loglevel="notice"&gt; hexo-util@0.6.0 build:highlight ~\git\a\node_modules\hexo-util&gt; node scripts/build_highlight_alias.js &gt; highlight_alias.jsonnpm notice created a lockfile as package-lock.json. You should commit this file.added 438 packages in 200.46sINFO Start blogging with Hexo! 参考 ： 【重点参考】记录下搭建hexo的一些问题 最简便的方法搭建Hexo+Github博客,基于Next主题 Hexo部署常见问题解决方案 – 传送门]]></content>
       <categories>
-        <category>git</category>
+        <category>Hexo</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -208,14 +208,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【简要】记录搭建 Hexo 的一些步骤]]></title>
-    <url>%2Fblog%2F2017-06-06.Hexo-brief%2F</url>
-    <content type="text"><![CDATA[总想有个自己的地方记录一些东西， 兜兜转转，还是选择了GitHub Pages。试过Jekyll，可惜ruby跟我相性实在不合，折腾了半天也没搞明白。于是选择了Hexo。使用很简单，js也比ruby亲切些，但搭建过程中还是碰到一些问题，这里记录下。 安装 Node.js暂时略， 可参考 记录下搭建hexo的一些问题 by 自制node.js + npm绿色版 安装 Git略， 作为开发， 你电脑上都没有 Git ？ 教程网上一大把。 建议： 安装的时候， 不要选择 checkout Window ，commit Linux ， 这样自动转换 EOL 的 默认选项。 安装 Hexo 【重头戏开始了】写博客时 2017年6月6日23:46:34 的 版本信息 ，Hexo 不同的版本变化还挺大的。 12345678910111213PS ~\git\HexoBlogSource&gt; hexo versionhexo: 3.3.7hexo-cli: 1.0.3os: Windows_NT 10.0.14393 win32 x64http_parser: 2.7.0node: 6.9.2v8: 5.1.281.88uv: 1.9.1zlib: 1.2.8ares: 1.10.1-DEVicu: 57.1modules: 48openssl: 1.0.2j Hexo 官网 给出了 最简单的 安装步骤 (稍加整理) 1234567891011# npm安装时其实可以指定版本号npm install hexo-cli -ghexo init blogcd blog# 安装一些必要的依赖 ， 执行前看下 &lt;【知识点】在中国，npm 使用优化 &gt;npm installhexo s[erver] -p 80 # [] 方括号中的内容可省略# 可选，使用rss时才需要npm install hexo-generator-feed --save# 可选，生成sitemapnpm install hexo-generator-sitemap --save 【知识点】在中国，npm 使用优化 网络不好、被墙的话，npm会很慢，试试加参数--registry=http://r.cnpmjs.org，国内的镜像。 出现各种奇怪的错误的话，试试npm cache clear。 将 Npm 的源替换成淘宝的源 参考 ： 将 Npm 的源替换成淘宝的源 by sg.ff @2016年02月17日发布 在墙内久了，难免会碰到撞墙的时候，所幸国内也有众多 NPM 镜像可供选择，在大多数情况下我们可以使用国内的源（比如 淘宝 NPM 镜像 http://npm.taobao.org）去替换官方的源以加快下载包的速度。 不过呢，我们在发布自己的包的时候却需要将源修改回官方的 https://registry.npmjs.org 源。 1234567# 修改源地址为淘宝 NPM 镜像npm config set registry http://registry.npm.taobao.org/# 修改源地址为官方源npm config set registry https://registry.npmjs.org/ 安装 Next 主题 hexo的主题很多，但感觉好看的不多。。。最终选择了NexT，很喜欢这种简洁的风格，作者更新也很积极。 你会爱上 Next 的 。 Hexo 主题的同步目前是个问题， 详见 另一篇文章 《Hexo 主题同步》 Next 主题优化内容太多， 详见 另一篇文章 《Hexo Next 主题优化》 未解之谜 可能的原因： 参考自： Hexo部署常见问题解决方案 将自己的Blog文件夹使用Git来管理，需要注意一下几点。 如果主题是通过git管理的，需要将主题文件夹下的.git文件夹删除，才能同步Blog文件夹（.git文件夹是隐藏的，需要显示隐藏文件才能删除，Linux下需要rm -rf命令才能删除，Mac没用过，不清楚）。 按照Blog目录下自带的.gitignore文件，node_modules文件夹是不会同步的，所以同步之后需要自己再次进行npm install，但是注意，不要进行hexo init了，否则_config.yml全都白弄了。 可以看到 hexo init a 时， 会自动把 landscape 下载好， 日志中也打出了 Submodule &#39;themes/landscape&#39; (...) registered for path &#39;themes/landscape&#39; 这样的信息， 但是： 奇怪的就是 ， landscape 在 Hexo 根目录 用 git gui 命令 是可以看到 文件的， 但是 next 主题只显示 subproject 一个文件， 难道是因为 hexo init a 用了类似 git clone --recursive 的语法，然后就不作为一个 subproject 了？ 然后我把 landscape 目录删了， 按 Next 方式 clone 了一遍， landscape 目录也像 next 那样只显示 subproject 一个文件， 这样也好，减少了很多文件。 1234567891011121314151617181920212223242526272829303132333435363738PS ~\git&gt; hexo init aINFO Cloning hexo-starter to ~\git\aCloning into '~\git\a'...remote: Counting objects: 53, done.remote: Total 53 (delta 0), reused 0 (delta 0), pack-reused 53Unpacking objects: 100% (53/53), done.Submodule 'themes/landscape' (https://github.com/hexojs/hexo-theme-landscape.git) registered for path 'themes/landscape'Cloning into '~/git/a/themes/landscape'...remote: Counting objects: 775, done.remote: Total 775 (delta 0), reused 0 (delta 0), pack-reused 775Receiving objects: 100% (775/775), 2.53 MiB | 1.18 MiB/s, done.Resolving deltas: 100% (397/397), done.INFO Install dependencies��Ϣ: ���ṩ��ģʽ�޷��ҵ��ļ�npm WARN deprecated swig@1.4.2: This package is no longer maintainednpm WARN prefer global marked@0.3.6 should be installed with -g&gt; fsevents@1.1.1 install ~\git\a\node_modules\fsevents&gt; node install&gt; dtrace-provider@0.8.2 install ~\git\a\node_modules\dtrace-provider&gt; node scripts/install.js&gt; hexo-util@0.6.0 postinstall ~\git\a\node_modules\hexo-util&gt; npm run build:highlightnpm WARN invalid config loglevel="notice"&gt; hexo-util@0.6.0 build:highlight ~\git\a\node_modules\hexo-util&gt; node scripts/build_highlight_alias.js &gt; highlight_alias.jsonnpm notice created a lockfile as package-lock.json. You should commit this file.added 438 packages in 200.46sINFO Start blogging with Hexo! 参考 ： 【重点参考】记录下搭建hexo的一些问题 最简便的方法搭建Hexo+Github博客,基于Next主题 Hexo部署常见问题解决方案 – 传送门]]></content>
+    <title><![CDATA[Git 常用操作]]></title>
+    <url>%2Fblog%2F2017-06-06.git-brief%2F</url>
+    <content type="text"><![CDATA[git 初始化（以下命令在 Git Bash中操作）添加 Coding 账户 SSH 公钥 TL;DR [^1] 参考 ： coding 帮助中心 生成公钥打开命令行终端输入ssh-keygen -t rsa -C “username@example.com”,( 注册的邮箱)，接下来点击enter键即可（也可以输入密码）。 12345ssh-keygen -t rsa -b 4096 -C "your_email@example.com"# Creates a new ssh key, using the provided email as a label# Generating public/private rsa key pair.Enter file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter] // 因为有多个git 仓库，所以 推荐跟仓库名及使用的电脑相关， 如：coding_pcEnter passphrase (empty for no passphrase): 成功之后 1234Your identification has been saved in /Users/you/.ssh/id_rsa.# Your public key has been saved in /Users/you/.ssh/id_rsa.pub.# The key fingerprint is:# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com 添加公钥 本地打开 id_rsa.pub 文件，复制其中全部内容，填写到SSH_RSA公钥key下的一栏，公钥名称可以随意起名字。 完成后点击“添加”，然后输入密码或动态码即可添加完成。 完成后在命令行测试，首次建立链接会要求信任主机。 ssh -T git@git.coding.net 12~/git $ ssh -T git@git.coding.netHello yafey! You've connected to Coding.net via SSH successfully! 【知识点】多个账户配置 （如 github + coding）如果需要使用多个账户建议生成多个公钥，可以在 ~/.ssh/config文件中加上下边一段 12345# 该文件用于配置私钥对应的服务器Host git.coding.netUser xxxx@email.com # 这里 也可以配置成 `User git`PreferredAuthentications publickeyIdentityFile ~/.ssh/coding_rsa # 生成的非默认地址的公钥存放点 git clone --recursive好像是会把 submodule 也更新好， 待验证。 git 初始化项目在命令行中创建 Git 仓库 12345678mkdir HexoBlogSourcecd HexoBlogSourcegit initecho "# HexoBlogSource" &gt;&gt; README.mdgit add README.mdgit commit -m "first commit"git remote add origin https://git.coding.net/yafey/HexoBlogSource.gitgit push -u origin master 已有项目 12git remote add origin https://git.coding.net/yafey/HexoBlogSource.gitgit push -u origin master git 常用操作集锦tag remote branch HEAD directly 参考 ： Git: Is there a way to tag remote branch HEAD directly by commit id? No real need to mess with local tags, just do the rewrite while pushing. 12# 替换下面的 &lt;&gt; 中的内容， 如果只有一个 remote ，origin 不用替换。git push &lt;origin&gt; refs/remotes/&lt;origin&gt;/&lt;branch1&gt;:refs/tags/&lt;tagged-branch1&gt; [^1]: Too Long; Don’t Read的缩写，换成中国话，就是太长了，读不下去的意思。 网络上的文章都太长了？ @2012-11-27 09:30 根据字典解释，“TL;DR”发源自网络。一般用于回复别人写得太多，反而让人抓不住重点，现在有的人把它放在一段话的开头，代表“长话短说”的意思——如今不少服务都直接以“TL;DR”为命名，把网络上一篇很长的报道，缩短成简单的三两句话，让人快速抓住文章的精华。]]></content>
       <categories>
-        <category>Hexo</category>
+        <category>git</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
