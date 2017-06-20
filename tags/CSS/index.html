@@ -110,7 +110,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Y.a.F.e.Y Blog">
-<meta property="og:url" content="https://hyf.js.org/tags/CSS/index.html">
+<meta property="og:url" content="https://hyf.js.org/tags/css/index.html">
 <meta property="og:site_name" content="Y.a.F.e.Y Blog">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Y.a.F.e.Y Blog">
@@ -141,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="https://hyf.js.org/tags/CSS/"/>
+  <link rel="canonical" href="https://hyf.js.org/tags/css/"/>
 
 
 
 
 
-  <title>标签: CSS | Y.a.F.e.Y Blog</title>
+  <title>标签: css | Y.a.F.e.Y Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -313,7 +313,7 @@
 
   <div id="posts" class="posts-collapse">
     <div class="collection-title">
-      <h1>CSS<small>标签</small>
+      <h1>css<small>标签</small>
       </h1>
     </div>
 
@@ -325,9 +325,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/blog/2017-06-16.html5拖放-15行js代码实现两个div内容互换/" itemprop="url">
+            <a class="post-title-link" href="/blog/2017-06-16.css：默认的checkbox、input、radio太丑了？我来教你改变使用纯css3改写的带动画的默认样式/" itemprop="url">
               
-                <span itemprop="name">【转】Html5拖放-15行js代码实现两个div内容互换</span>
+                <span itemprop="name">Css：【转】默认的checkbox、input、radio太丑了？我来教你改变使用纯css3改写的带动画的默认样式</span>
               
             </a>
         
@@ -335,65 +335,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-16T00:21:57+08:00"
+              datetime="2017-06-16T00:11:38+08:00"
               content="2017-06-16" >
           06-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2017-06-15.css-selector-cheat-sheet/" itemprop="url">
-              
-                <span itemprop="name">常用CSS选择器速查表</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-15T19:45:31+08:00"
-              content="2017-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2017-06-02.CSS-in-JS-brief/" itemprop="url">
-              
-                <span itemprop="name">CSS in JS 简介 「阮一峰」</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-02T21:31:22+08:00"
-              content="2017-06-02" >
-          06-02
         </time>
       </div>
 
@@ -447,7 +391,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -469,7 +413,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -614,7 +558,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共53.3k字</span>
+  <span class="post-count">博客全站共59.4k字</span>
 </div>
 
         
@@ -1128,6 +1072,73 @@
             counter.fetchWhenSave(true);
             counter.increment("time");
             counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/blog/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/blog/js/src/love.js"></script>
+
+</body>
+</html>
+{
               success: function(counter) {
                 var $element = $(document.getElementById(url));
                 $element.find('.leancloud-visitors-count').text(counter.get('time'));
